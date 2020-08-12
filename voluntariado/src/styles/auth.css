@@ -1,0 +1,33 @@
+.header{    
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+
+}
+.container{
+    align-items: center;
+    background-image: url('../images/auth_background.JPG');
+    background-size: cover;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.title{
+    font-size: 60px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    position: relative;
+    text-align: center;
+    width: 500px;
+    padding-right: 200px;
+    padding-left: 650px;
+}
+
+.logo{
+    height: 128px;
+    width: 367px;
+
+}
+
