@@ -1,11 +1,16 @@
 import React from 'react';
+import { BrowserRouter, Route} from 'react-router-dom';
+
 import Auth from '../components/auth';
-function App() {
-  return (
+import ProjectRequest from '../components/projectRequest';
+
+const App = () => (
+  <BrowserRouter>
     <div>
-      <Auth />
+      <Route path= "/" exact component={Auth} />
+      <Route path = "/project-request" component={ProjectRequest} />
     </div>
-  );
-}
+  </BrowserRouter>
+);
 
 export default App;

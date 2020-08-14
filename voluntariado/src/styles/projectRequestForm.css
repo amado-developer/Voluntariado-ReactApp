@@ -1,0 +1,16 @@
+.project_request_form{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.profile_picture{
+    height: 100px;
+    width: 100px;
+}
+
+.blue_bar{
+    background-color: #98C6DF;
+    height: 30px;
+}

@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../../styles/authForm.css';
+
 const authForm = () => (
     <div className="auth_form_container">
        
@@ -15,9 +17,9 @@ const authForm = () => (
             <button type="submit" className="submit_btn">
                 Iniciar
             </button>
-            <a href="#" className="contacto">
+            <Link to="/project-request"><p className="contacto">
                 ¿Estás interesado en colaborar con nosotros? Contáctanos
-            </a>
+            </p></Link>
         </div>
     </div>
 );
