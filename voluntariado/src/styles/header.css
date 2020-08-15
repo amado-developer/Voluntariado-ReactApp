@@ -1,5 +1,5 @@
 .header{
-    height: 100px;
+    height: 150px;
     display: flex;
     justify-content: flex-end;
 }
@@ -9,5 +9,4 @@
     margin-right: 50px;
     width: 315px;
     height: 100px;
-
 }

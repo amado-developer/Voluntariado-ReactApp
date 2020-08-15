@@ -5,7 +5,7 @@ import logo from '../../images/white_logo.png'
 const auth = () => (
     <div>
         <div className="container">
-            <div className="header">
+            <div className="auth_header">
                 <h1 className="title"> 
                     HORAS DE EXTENSIÓN
                 </h1>
