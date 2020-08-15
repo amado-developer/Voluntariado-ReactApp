@@ -1,40 +1,102 @@
 import React, {useCallback, useState}from 'react';
+import { useHistory } from "react-router-dom";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {useDropzone} from 'react-dropzone'
 import '../../styles/projectRequestForm.css';
 import Header from '../header';
-import axios from 'axios'
+import axios from 'axios';
 
 const url = `http://localhost:8000/api/v1/solicitud-proyecto/`;
-const post = (company_name, phone_number, email_address, project_name, description, requirements) => {
-    const data = {
-       company_name,
-       phone_number,
-       email_address,
-       project_name,
-       description,
-       requirements
+const post = (company_name, phone_number, email_address, project_name, description, requirements, picture='') => {
+    // const data = {
+    //    company_name,
+    //    phone_number,
+    //    email_address,
+    //    project_name,
+    //    description,
+    //    requirements,
+    //    picture
+    // }   
+
+    const form_data = new FormData();
+
+    if(picture !== ''){
+        form_data.append('picture', picture, picture.name);
     }
 
-    fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
+    form_data.append('company_name', company_name);
+    form_data.append('phone_number', phone_number);
+    form_data.append('project_name', project_name);
+    form_data.append('description', description);
+    form_data.append('requirements', requirements);
+    form_data.append('email_address', email_address);
+
+    axios.post(url, form_data, {
         headers: {
-            'Content-Type': 'application/json'
-        },
-    }).then(res => console.log(res.json()))
+          'content-type': 'multipart/form-data'
+        }
+    })
+    
 }
+toast.configure()
+
+const inputValidation = (companyName='', phone='', email='', projectName='', description='', requirements='') => {
+    return{
+        'companyName': companyName !== '',
+        'phone' : phone !== '',
+        'email': email !== '' && email.includes("@"),
+        'projectName': projectName !== '',
+        'description': description !== '',
+        'requirements': requirements !== '',
+    }
+};
+
 const ProjectRequestForm = () => {
+    const history = useHistory();
     const onDrop = useCallback(acceptedFiles => {
-        console.log(acceptedFiles);
+        acceptedFiles.forEach((file) => {
+            const reader = new FileReader()
+      
+            reader.onabort = () => console.log('file reading was aborted')
+            reader.onerror = () => console.log('file reading has failed')
+            reader.onload = () => {
+            // Do whatever you want with the file contents
+              const binaryStr = reader.result
+              console.log(binaryStr)
+            }
+            reader.readAsArrayBuffer(file)
+            changeImage(file)
+          })
+        
       }, []);
 
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+    const {getRootProps, getInputProps} = useDropzone({onDrop});
     const [companyName, changeCompanyName] = useState('');
     const [phone, changePhone] = useState('');
     const [email, changeEmail] = useState('');
     const [projectName, changeProjectName] = useState('');
     const [description, changeDescription] = useState('');
     const [requirements, changeRequirements] = useState('');
+    const [image, changeImage] = useState('');
+
+    const notify = valid =>{
+        if(valid){
+            toast.success('Solicitud enviada con exito', {
+                position:toast.POSITION.TOP_LEFT,
+                className: 'toast__success',
+                autoClose: 3000,
+            })
+        }else{
+            toast.error('Error, verifique los campos', {
+                position:toast.POSITION.TOP_LEFT,
+                className: 'toast__success',
+                autoClose: 3000,
+            })
+        }  
+    }
 
     return(
     <div className="project_request_container">
@@ -95,15 +157,35 @@ const ProjectRequestForm = () => {
                     <div {...getRootProps()} className="drag__zone">
                         <input {...getInputProps()} />
                             {
+                                image === '' ? 
                                 <div className="drag__zone__components">
                                     <p>Arrastre la imagen aqui o</p> 
                                     <button className="upload__btn">Presione para subir imagen</button>
                                 </div>
+                                :
+                                <img src={URL.createObjectURL(image)} className="dragged__picture"></img>
                             }
                     </div>
                 </div>
                 <div className="submit_request">
-                    <button type="submit" className="submit_request_btn" onClick={() => post(companyName, phone, email, projectName, description, requirements)}>Enviar solicitud</button>
+                    <button type="submit" className="submit_request_btn" onClick={ () => {
+              
+                        let error = inputValidation(companyName, phone, email, projectName, description, requirements);
+                        let isValid = true;
+
+                        for(let key in error){
+                           if(!error[key]){
+                               isValid = false;
+                           }
+                        }
+                        console.log(error);
+                        if(isValid){
+                            post(companyName, phone, email, projectName, description, requirements, image)
+                            setTimeout(() => {history.push('/');}, 3000);
+                        }
+                        notify(isValid);
+                     
+                    }}>Enviar solicitud</button>
                 </div>
                 
             </div>
