@@ -84,9 +84,8 @@
     flex-direction: column;
     border-radius: 20px;
     width: 79%;
-    height: 300px;
     margin-left: 40px;
-    
+    overflow-y: scroll;
 }
 
 .submit_request{
@@ -120,7 +119,12 @@
     height: 300px;
     border-radius: 25px;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
+    overflow-y: scroll;
+    outline: none;
+    flex-grow: 1;
 }
 
 .drag__zone__components{
@@ -142,7 +146,8 @@ p{
 }
 
 .dragged__picture{
-    height: 100%;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 .toast__success{
@@ -150,4 +155,30 @@ p{
     height: 100px;
     font-size: 30px;
     padding-left: 50px;
+}
+
+.upload__image__container{
+    display: flex;
+    flex-flow: row;
+    
+}
+
+.filepicker{
+    height: 35px;
+    margin-top: 18px;
+}
+
+.add__new__image:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.delete__upload__file:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.add__new__image, .delete__upload__file{
+    color: #009444;
+    opacity: 1;
 }

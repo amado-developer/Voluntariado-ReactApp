@@ -4,29 +4,20 @@ import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+
 import {useDropzone} from 'react-dropzone'
 import '../../styles/projectRequestForm.css';
-import Header from '../header';
 import axios from 'axios';
+import {v4} from 'uuid';
+import {API_BASE_URL} from '../../Config';
 
-const url = `http://localhost:8000/api/v1/solicitud-proyecto/`;
-const post = (company_name, phone_number, email_address, project_name, description, requirements, picture='') => {
-    // const data = {
-    //    company_name,
-    //    phone_number,
-    //    email_address,
-    //    project_name,
-    //    description,
-    //    requirements,
-    //    picture
-    // }   
+import Header from '../header';
+import DragNDrop from '../dragndrop';
 
+const post = (company_name, phone_number, email_address, project_name, description, requirements, pictures='') => {
     const form_data = new FormData();
-
-    if(picture !== ''){
-        form_data.append('picture', picture, picture.name);
-    }
-
     form_data.append('company_name', company_name);
     form_data.append('phone_number', phone_number);
     form_data.append('project_name', project_name);
@@ -34,13 +25,27 @@ const post = (company_name, phone_number, email_address, project_name, descripti
     form_data.append('requirements', requirements);
     form_data.append('email_address', email_address);
 
-    axios.post(url, form_data, {
+    axios.post(`${API_BASE_URL}/solicitud-proyecto/`, form_data, {
         headers: {
           'content-type': 'multipart/form-data'
         }
     })
-    
-}
+    postImages(pictures);
+};
+
+
+async function postImages(pictures){
+    const images_data = new FormData();
+    if(pictures.length > 0){
+        pictures.map(picture => images_data.append('image', picture))
+        await axios.post(`${API_BASE_URL}/project-images/save-images/`, images_data, {
+            headers: {
+                'content-type' : 'multipart/form-data'
+            }
+        })
+    }
+};
+
 toast.configure()
 
 const inputValidation = (companyName='', phone='', email='', projectName='', description='', requirements='') => {
@@ -56,31 +61,15 @@ const inputValidation = (companyName='', phone='', email='', projectName='', des
 
 const ProjectRequestForm = () => {
     const history = useHistory();
-    const onDrop = useCallback(acceptedFiles => {
-        acceptedFiles.forEach((file) => {
-            const reader = new FileReader()
-      
-            reader.onabort = () => console.log('file reading was aborted')
-            reader.onerror = () => console.log('file reading has failed')
-            reader.onload = () => {
-            // Do whatever you want with the file contents
-              const binaryStr = reader.result
-              console.log(binaryStr)
-            }
-            reader.readAsArrayBuffer(file)
-            changeImage(file)
-          })
-        
-      }, []);
-
-    const {getRootProps, getInputProps} = useDropzone({onDrop});
     const [companyName, changeCompanyName] = useState('');
     const [phone, changePhone] = useState('');
     const [email, changeEmail] = useState('');
     const [projectName, changeProjectName] = useState('');
     const [description, changeDescription] = useState('');
-    const [requirements, changeRequirements] = useState('');
-    const [image, changeImage] = useState('');
+    const [requirements, changeRequirements] = useState('');    
+    const [imageUpload, addImageUpload] = useState([0]);
+    const [images, changeImages] = useState([]);
+    const [image, changeImage] = useState("")
 
     const notify = valid =>{
         if(valid){
@@ -154,22 +143,34 @@ const ProjectRequestForm = () => {
                     />
                 </div>
                 <div className="project_image_container"> 
-                    <div {...getRootProps()} className="drag__zone">
-                        <input {...getInputProps()} />
-                            {
-                                image === '' ? 
-                                <div className="drag__zone__components">
-                                    <p>Arrastre la imagen aqui o</p> 
-                                    <button className="upload__btn">Presione para subir imagen</button>
-                                </div>
-                                :
-                                <img src={URL.createObjectURL(image)} className="dragged__picture"></img>
-                            }
+                    {
+                    imageUpload.map(upload => {
+                        return(
+                        <div key={upload} className="upload__image__container" >
+                            <input  type='file' className="upload__file__input" className="filepicker" accept="image/*"
+                            files={image}
+                            onChange={e => {
+                                changeImage(e.target.files[0])
+                                changeImages([...images, e.target.files[0]])
+                            }}
+                            />
+                            <p onClick={() => {
+                                if(imageUpload.length > 1){
+                                    addImageUpload(imageUpload.filter(id => id != upload));
+                                }
+                            }} className="delete__upload__file">{
+                                imageUpload.length > 1 ? ("X") : ("")
+                            }</p>
+                        </div>
+                    )})}
+                    <div>
+                        <p onClick={() => {
+                            addImageUpload([...imageUpload, imageUpload.length])
+                        }} className="add__new__image">+ Subir más Imagenes</p>
                     </div>
                 </div>
                 <div className="submit_request">
                     <button type="submit" className="submit_request_btn" onClick={ () => {
-              
                         let error = inputValidation(companyName, phone, email, projectName, description, requirements);
                         let isValid = true;
 
@@ -178,9 +179,9 @@ const ProjectRequestForm = () => {
                                isValid = false;
                            }
                         }
-                        console.log(error);
+                        // console.log(error);
                         if(isValid){
-                            post(companyName, phone, email, projectName, description, requirements, image)
+                            post(companyName, phone, email, projectName, description, requirements, images)
                             setTimeout(() => {history.push('/');}, 3000);
                         }
                         notify(isValid);

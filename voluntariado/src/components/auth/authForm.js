@@ -4,7 +4,6 @@ import '../../styles/authForm.css';
 
 const authForm = () => (
     <div className="auth_form_container">
-       
         <div className="email_container">
             <label className="email_label">Correo Electrónico</label>
             <input type="text" className='email_input' />

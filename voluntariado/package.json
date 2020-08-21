@@ -7,13 +7,17 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "lodash-uuid": "0.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.0.3",
+    "react-photo-gallery": "^8.0.0",
+    "react-responsive-carousel": "^3.2.9",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.2",
     "react-toastify": "^6.0.8",
-    "reactstrap": "^8.5.1"
+    "reactstrap": "^8.5.1",
+    "uuidv4": "^6.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
