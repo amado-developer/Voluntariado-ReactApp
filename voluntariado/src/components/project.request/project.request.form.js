@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useRef, useEffect} from 'react';
+import React, {useCallback, useState} from 'react';
 import { useHistory } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import Header from '../header';
 import Faculties from '../faculties/faculties';
 import Majors from '../majors/majors';
-import LabeledInputList from '../labeledInput/labeledInputList';
+import LabeledInputList from '../labeled.input/labeled.input.list';
 import Tags from '../tags';
 
 import linkdInIcon from '../../images/linkedin_icon.png';

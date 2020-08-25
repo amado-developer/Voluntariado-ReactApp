@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import * as types from '../../types/projectRequest';
+import * as types from '../../types/project.request';
 
 const byId = (state = {}, action) => {
 

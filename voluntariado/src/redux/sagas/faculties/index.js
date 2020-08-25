@@ -10,9 +10,9 @@ import {
 
   import {normalize} from 'normalizr';
   import * as schemas from '../../schemas/faculties';
-  import * as types from '../../types/projectRequest';
-  import * as actions from '../../actions/projectRequest';
-  import {API_BASE_URL} from '../../../Config'
+  import * as types from '../../types/project.request';
+  import * as actions from '../../actions/project.request';
+  import {API_BASE_URL} from '../../../config'
   
   function* fetchFaculties(action) {
     try {

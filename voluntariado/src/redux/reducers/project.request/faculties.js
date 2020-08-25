@@ -1,9 +1,9 @@
-import * as types from '../../types/projectRequest';
+import * as types from '../../types/project.request';
 import {combineReducers} from 'redux';
 
 const byId = (state = null, action) => {
     switch (action.type) {
-      case types.FETCHING_MAJORS_COMPLETED: {
+      case types.FETCHING_FACULTIES_COMPLETED: {
         const {entities, order} = action.payload;
         const newState = {...state};
         order.forEach(id => {
@@ -13,7 +13,7 @@ const byId = (state = null, action) => {
         });
         return newState;
       }
-      case types.FETCHING_MAJORS_STARTED: {
+      case types.FETCHING_FACULTIES_STARTED: {
         return {};
       }
       default: {
@@ -24,10 +24,10 @@ const byId = (state = null, action) => {
 
 const order = (state = [], action) => {
     switch (action.type) {
-      case types.FETCHING_MAJORS_COMPLETED: {
+      case types.FETCHING_FACULTIES_COMPLETED: {
         return [...state, ...action.payload.order];
       }
-      case types.FETCHING_MAJORS_STARTED: {
+      case types.FETCHING_FACULTIES_STARTED: {
         return [];
       }
     }
@@ -36,13 +36,13 @@ const order = (state = [], action) => {
   
 const isFetching = (state = false, action) => {
     switch (action.type) {
-      case types.FETCHING_MAJORS_STARTED: {
+      case types.FETCHING_FACULTIES_STARTED: {
         return true;
       }
-      case types.FETCHING_MAJORS_COMPLETED: {
+      case types.FETCHING_FACULTIES_COMPLETED: {
         return false;
       }
-      case types.FETCHING_MAJORS_FAILED: {
+      case types.FETCHING_FACULTIES_FAILED: {
         return false;
       }
       default: {
@@ -53,13 +53,13 @@ const isFetching = (state = false, action) => {
   
 const error = (state = null, action) => {
     switch (action.type) {
-      case types.FETCHING_MAJORS_FAILED: {
+      case types.FETCHING_FACULTIES_FAILED: {
         return action.payload.error;
       }
-      case types.FETCHING_MAJORS_STARTED: {
+      case types.FETCHING_FACULTIES_STARTED: {
         return null;
       }
-      case types.FETCHING_MAJORS_COMPLETED: {
+      case types.FETCHING_FACULTIES_COMPLETED: {
         return null;
       }
       default: {
@@ -68,27 +68,35 @@ const error = (state = null, action) => {
     }
 };
 
-const selectedMajor = (state = null, action) =>{
+const selectedFaculty = (state = null, action) =>{
   switch (action.type){
-    case types.SELECT_MAJOR: {
-      return action.payload.major;
+    case types.SELECT_FACULTY: {
+      return action.payload.faculty;
     }
   }
   return state;
 };
+
 
 export default combineReducers({
     byId,
     order,
     isFetching,
     error,
-    selectedMajor,
+    selectedFaculty,
 });
 
 //SELECTORS
-export const getMajor = (state, id) => state.byId[id];
-export const getMajors = state => state.order.map(
-    id => getMajor(state, id));
+export const getFaculty = (state, id) => state.byId[id];
+
+export const getFaculties = state => state.order.map(
+    id => getFaculty(state, id));
+
 export const getIsFeching = state => state.isFeching;
 export const getError = state => state.error;
-export const getSelectedMajor = state => state.selectedMajor;
+
+export const getSelectedFaculty = state => state.selectedFaculty;
+
+
+
+

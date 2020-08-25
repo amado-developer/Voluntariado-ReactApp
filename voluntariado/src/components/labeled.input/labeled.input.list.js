@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import LabeledInput from './labeledInputRow';
+import LabeledInput from './labeled.input.row';
 import '../../styles/labeledInput.css';
 const labeledInputs = [
     'Nombre de la empresa', 

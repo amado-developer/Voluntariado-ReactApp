@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthForm from './authForm'; 
+import AuthForm from './auth.form'; 
 import '../../styles/auth.css'
 import logo from '../../images/white_logo.png'
 const auth = () => (

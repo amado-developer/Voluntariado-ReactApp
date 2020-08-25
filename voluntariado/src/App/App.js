@@ -4,10 +4,10 @@ import {configureStore} from './store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import Auth from '../components/auth';
+import Auth from '../components/log.in';
 // import Test from '../components/test';
-import ProjectRequest from '../components/projectRequest';
-import ProjectRequestApproval from '../components/ProjectRequestApproval';
+import ProjectRequest from '../components/project.request';
+// import ProjectRequestApproval from '../components/project.request.approval';
 
 const { store, persistor } = configureStore();
 
@@ -16,10 +16,9 @@ const App = () => (
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <div>
-          <Route path= "/" exact component={Auth} />
-          {/* <Route path= "/" exact component={Test} /> */}
+          <Route path= "/login" exact component={Auth} />
           <Route path = "/project-request" component={ProjectRequest} />
-          <Route path = "/project-request-approval" component={ProjectRequestApproval} />
+          {/* <Route path = "/project-request-approval" component={ProjectRequestApproval} /> */}
         </div>
       </BrowserRouter>
     </PersistGate>

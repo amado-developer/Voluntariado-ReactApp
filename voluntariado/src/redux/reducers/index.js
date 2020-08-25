@@ -1,15 +1,17 @@
 import {combineReducers} from 'redux';
 
 // import ButtonClick, * as buttonClickSelectors from './buttonClick';
-import faculties, * as FacultiesSelectors from './projectRequest/faculties';
-import majors, * as MajorsSelectors from './projectRequest/majors';
-import projectRequestForm, * as ProjectRequestFormSelectors from './projectRequest/form';
+import faculties, * as FacultiesSelectors from './project.request/faculties';
+import majors, * as MajorsSelectors from './project.request/majors';
+import projectRequestForm, * as ProjectRequestFormSelectors from './project.request/form';
 import tags, * as TagSelectors from './tags';
+import auth, * as AuthSelectors from './authorization';
 const reducer = combineReducers({
     faculties,
     majors,
     projectRequestForm,
     tags,
+    auth,
 });
 
 export default reducer;
@@ -31,9 +33,16 @@ export const getSelectedMajor = state => MajorsSelectors.getSelectedMajor(state.
 //Project Request Form Selectors
 export const getForm = state => ProjectRequestFormSelectors.getForms(state.projectRequestForm);
 
-//tag selectors
+//Tag Selectors
 export const getTags = state => TagSelectors.getTags(state.tags);
 
+//Auth Selectors
+export const getAuthToken = state => AuthSelectors.getAuthToken(state.auth);
+export const isAuthenticating = state => AuthSelectors.getIsAuthenticating(state.auth);
+export const getAuthenticationError = state => AuthSelectors.getAuthenticatingError(state.auth);
+export const getAuthUserID = state => AuthSelectors.getAuthUserID(state.auth);
+export const getAuthExpiration = state => AuthSelectors.getAuthExpiration(state.auth);
+export const getAuthUser = state => AuthSelectors.getAuthUser(state.auth);
 
 
 

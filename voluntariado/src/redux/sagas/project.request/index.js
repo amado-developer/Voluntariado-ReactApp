@@ -9,9 +9,9 @@ import {
   } from 'redux-saga/effects';
 
 import * as selectors from '../../reducers';
-import * as actions from '../../actions/projectRequest';
-import * as types from '../../types/projectRequest';
-import {API_BASE_URL} from '../../../Config';
+import * as actions from '../../actions/project.request';
+import * as types from '../../types/project.request';
+import {API_BASE_URL} from '../../../config';
 import axios from 'axios';
 
 function* postProjectRequest(action) {

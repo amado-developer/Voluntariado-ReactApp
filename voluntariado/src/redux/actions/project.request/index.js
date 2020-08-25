@@ -1,4 +1,4 @@
-import * as types from '../../types/projectRequest';
+import * as types from '../../types/project.request';
 
 export const startFetchingFaculties = () => ({
     type: types.FETCHING_FACULTIES_STARTED,
