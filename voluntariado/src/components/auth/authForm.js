@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/authForm.css';
-
-const authForm = () => (
+import {connect} from 'react-redux';
+import * as projectRequestActions from '../../redux/actions/projectRequest';
+const authForm = ({onClick}) => (
     <div className="auth_form_container">
         <div className="email_container">
             <label className="email_label">Correo Electrónico</label>
@@ -16,11 +17,19 @@ const authForm = () => (
             <button type="submit" className="submit_btn">
                 Iniciar
             </button>
-            <Link to="/project-request"><p className="contacto">
+            <Link to="/project-request"><p className="contacto" onClick={() => onClick()}>
                 ¿Estás interesado en colaborar con nosotros? Contáctanos
             </p></Link>
         </div>
     </div>
 );
-export default authForm;
+
+export default connect(
+    undefined,
+    dispatch =>({
+        onClick(){
+            dispatch(projectRequestActions.startFetchingFaculties());
+        }
+    })
+)(authForm);
 

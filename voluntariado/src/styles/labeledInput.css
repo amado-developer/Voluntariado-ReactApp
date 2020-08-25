@@ -1,0 +1,26 @@
+.labeled__input__container{
+    display: flex;
+    flex-direction: column;
+}
+
+.labeled__input__label{
+    color: black;
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 5px;
+}
+
+.labeled__input__input{
+    border: #DAD8D8;
+    border-style: groove;
+    border-radius: 20px;
+
+    height: 44px;
+    width: 431px;
+    outline: none;
+    padding-left: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: rgb(52, 52, 52);
+    margin-bottom: 50px;
+}

@@ -4,7 +4,7 @@ import ProjectRequestApproval from './ProjectRequestApproval';
 
 const url = `http://localhost:8000/api/v1/solicitud-proyecto/`;
 const ProjectRequestsApproval = () => {
-    const [responseData, setResponseData] = React.useState('');
+    const [responseData, setResponseData] = useState('');
     let order = []
     const fetchData = useCallback(() =>{
         axios(url)

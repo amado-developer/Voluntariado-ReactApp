@@ -1,51 +1,24 @@
-import React, {useCallback, useState}from 'react';
+import React, {useCallback, useState, useRef, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
-
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
-
-import {useDropzone} from 'react-dropzone'
 import '../../styles/projectRequestForm.css';
-import axios from 'axios';
-import {v4} from 'uuid';
-import {API_BASE_URL} from '../../Config';
+import * as Selectors from '../../redux/reducers';
+import * as actions from '../../redux/actions/projectRequest';
+import {uuid} from 'uuidv4';
+import {connect} from 'react-redux';
 
 import Header from '../header';
-import DragNDrop from '../dragndrop';
+import Faculties from '../faculties/faculties';
+import Majors from '../majors/majors';
+import LabeledInputList from '../labeledInput/labeledInputList';
+import Tags from '../tags';
 
-const post = (company_name, phone_number, email_address, project_name, description, requirements, pictures='') => {
-    const form_data = new FormData();
-    form_data.append('company_name', company_name);
-    form_data.append('phone_number', phone_number);
-    form_data.append('project_name', project_name);
-    form_data.append('description', description);
-    form_data.append('requirements', requirements);
-    form_data.append('email_address', email_address);
-
-    axios.post(`${API_BASE_URL}/solicitud-proyecto/`, form_data, {
-        headers: {
-          'content-type': 'multipart/form-data'
-        }
-    })
-    postImages(pictures);
-};
-
-
-async function postImages(pictures){
-    const images_data = new FormData();
-    if(pictures.length > 0){
-        pictures.map(picture => images_data.append('image', picture))
-        await axios.post(`${API_BASE_URL}/project-images/save-images/`, images_data, {
-            headers: {
-                'content-type' : 'multipart/form-data'
-            }
-        })
-    }
-};
-
+import linkdInIcon from '../../images/linkedin_icon.png';
+import facebookIcon from '../../images/facebook_icon.png';
+import instagramIcon from '../../images/instagram_icon.png';
+import webIcon from '../../images/web_icon.png';
+import '../../styles/tags.css';
 toast.configure()
 
 const inputValidation = (companyName='', phone='', email='', projectName='', description='', requirements='') => {
@@ -59,17 +32,26 @@ const inputValidation = (companyName='', phone='', email='', projectName='', des
     }
 };
 
-const ProjectRequestForm = () => {
+let link = [] //temporalmente lo dejaremos aqui
+const ProjectRequestForm = ({onSubmitData, major, faculty, tags}) => {
     const history = useHistory();
-    const [companyName, changeCompanyName] = useState('');
-    const [phone, changePhone] = useState('');
-    const [email, changeEmail] = useState('');
-    const [projectName, changeProjectName] = useState('');
+    const [inputValues, changeInputValues] = useState([]);
     const [description, changeDescription] = useState('');
     const [requirements, changeRequirements] = useState('');    
     const [imageUpload, addImageUpload] = useState([0]);
+    const [linkUpload, addLinkUpload] = useState([0]);
     const [images, changeImages] = useState([]);
-    const [image, changeImage] = useState("")
+    const [links, changeLinks] = useState([]);
+    const [image, changeImage] = useState("");
+    const [aboutUs, changeAboutUs] = useState('');
+
+
+    const inputListValueChange = useCallback(
+        (value) => {
+            changeInputValues(c => value);
+        },
+        [changeInputValues]
+    );
 
     const notify = valid =>{
         if(valid){
@@ -93,36 +75,12 @@ const ProjectRequestForm = () => {
         <div className="blue_bar"></div>
         <div className="project_request_form">
             <div className="left_container">
-                <label className="company_name_lbl"> Nombre de la empresa</label>
-                <input 
-                className="company_name" 
-                type="text" 
-                value={companyName}
-                onChange={e => changeCompanyName(e.target.value)}
-                />
-                <label className="phone_number_lbl">Teléfono</label>
-                <input 
-                className="phone_number" 
-                type="text" 
-                value={phone}
-                onChange={e => changePhone(e.target.value)}
-                />
-                <label className="email_lbl">Correo Electrónico</label>
-                <input 
-                className="email"
-                type="text" 
-                value={email}
-                onChange={e => changeEmail(e.target.value)}
-                />
-                <label className="project_name_lbl">Nombre del proyecto</label>
-                <input
-                className="project_name"  
-                type="text" 
-                value={projectName}
-                onChange={e => changeProjectName(e.target.value)}
-                />
+                <LabeledInputList values={inputListValueChange} />
+                <Faculties />
+                <Majors />
+                <Tags />
             </div>
-           
+
             <div className="right_container">
                 <div className="project_description_container">
                     <label className="description_lbl">Descripción del proyecto</label>
@@ -142,6 +100,21 @@ const ProjectRequestForm = () => {
                     onChange={e => changeRequirements(e.target.value)}
                     />
                 </div>
+
+                <div className="upload__descriptions">
+                    <div className="images__title">
+                        <label>Imágenes</label>
+                    </div>
+
+                    <div className="icons__title">
+                        <label>Enlaces</label>
+                        <img src={linkdInIcon} height='25px' />
+                        <img src={facebookIcon} height='25px' />
+                        <img src={instagramIcon} height='25px' />
+                        <img src={webIcon} height='25px' />
+                    </div>
+                </div>
+
                 <div className="project_image_container"> 
                     {
                     imageUpload.map(upload => {
@@ -156,44 +129,134 @@ const ProjectRequestForm = () => {
                             />
                             <p onClick={() => {
                                 if(imageUpload.length > 1){
-                                    addImageUpload(imageUpload.filter(id => id != upload));
+                                    addImageUpload(imageUpload.filter(id => id !== upload));
                                 }
                             }} className="delete__upload__file">{
                                 imageUpload.length > 1 ? ("X") : ("")
                             }</p>
                         </div>
                     )})}
-                    <div>
+                   <div>
                         <p onClick={() => {
                             addImageUpload([...imageUpload, imageUpload.length])
                         }} className="add__new__image">+ Subir más Imagenes</p>
                     </div>
                 </div>
+
+                <div className="project__links__container">
+                    {
+                        linkUpload.map(linkId => {
+                            return(
+                            <div key={linkId} className="upload__link__container" >
+                                <input  type='link' className="upload__link__input"
+                                value={link[linkId]}
+                                onChange={e => {
+                                 
+                                    link[linkId] = e.target.value;
+                                    changeLinks([...links, e.target.value])
+                                }}
+                             />
+                                <p onClick={() => {
+                                    if(linkUpload.length > 1){
+                                        link[linkId] = ''
+                                        addLinkUpload(linkUpload.filter(id => id !== linkId));
+                                    }
+                                }} className="delete__link__field">{
+                                    linkUpload.length > 1 ? ("X") : ("")
+                            }</p>
+                        </div>
+                            )})}
+                    <div>
+                        <p onClick={() => {
+                            addLinkUpload([...linkUpload, linkUpload.length])
+                        }} className="add__new__link">+ Subir más enlances</p>
+                    </div>
+                </div>
+                <div className="about__us__project__request">
+                    <label className="about__us__lbl">
+                        Acerca de la empresa
+                    </label>
+                    <textarea 
+                    className="about__us__txtArea" 
+                    value={aboutUs}
+                    onChange={e => changeAboutUs(e.target.value) }
+                    />
+                </div>
                 <div className="submit_request">
                     <button type="submit" className="submit_request_btn" onClick={ () => {
-                        let error = inputValidation(companyName, phone, email, projectName, description, requirements);
-                        let isValid = true;
-
-                        for(let key in error){
-                           if(!error[key]){
-                               isValid = false;
-                           }
-                        }
-                        // console.log(error);
-                        if(isValid){
-                            post(companyName, phone, email, projectName, description, requirements, images)
-                            setTimeout(() => {history.push('/');}, 3000);
-                        }
-                        notify(isValid);
-                     
+                        let tagList = '';
+                        tags.map(tag => tagList += tag.tag + '  ');
+                        // tagList = tagList.replace('  ', ',')
+                        onSubmitData(
+                        uuid(), 
+                        inputValues, 
+                        description, 
+                        requirements, 
+                        faculty, 
+                        major, 
+                        aboutUs, 
+                        images, 
+                        links,
+                        tagList,
+                        );
+                        setTimeout(() => {history.push('/');}, 3000);
+                        notify(true)
                     }}>Enviar solicitud</button>
                 </div>
+               
+            </div>  
+            <div>
                 
             </div>
-            
         </div>
     </div>
-    )
-};
+)};
 
-export default ProjectRequestForm;
+
+export default connect(
+    state =>({
+        major: Selectors.getSelectedMajor(state),
+        faculty: Selectors.getSelectedFaculty(state),
+        form: Selectors.getForm(state),
+        tags: Selectors.getTags(state),
+    }),
+    dispatch =>({
+        onSubmitData(id, inputValues, description, requirements, faculty, major, aboutUs, images, links, tags){
+            dispatch(actions.startPostProjectRequestForm(
+                id, inputValues, description, requirements, faculty, major, aboutUs, images, links, tags))
+        }
+    })
+)(ProjectRequestForm);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   // let error = inputValidation(companyName, phone, email, projectName, description, requirements);
+                        // let isValid = true;
+
+                        // for(let key in error){
+                        //    if(!error[key]){
+                        //        isValid = false;
+                        //    }
+                        // }
+                        // if(isValid){
+                           
+                        //    
+                        // }
+                        // notify(isValid);
+                     

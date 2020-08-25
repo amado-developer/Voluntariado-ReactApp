@@ -14,7 +14,7 @@
     height: 30px;
 }
 
-.company_name, .phone_number, .email, .project_name, .description, .requirements{
+.description, .requirements{
     border: #DAD8D8;
     border-style: groove;
     border-radius: 20px;
@@ -29,15 +29,11 @@
    
 }
 
-.company_name, .phone_number, .email, .project_name{
-    margin-bottom: 50px;
-}
-
 .description, .requirements{
     padding-top: 10px;
 }
 
-.company_name_lbl, .phone_number_lbl, .email_lbl, .project_name_lbl, .description_lbl, .requirements_lbl{
+.description_lbl, .requirements_lbl{
     color: black;
     font-size: 30px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -78,15 +74,46 @@
 }
 
 .project_image_container{
-    margin-bottom: 35px;
-    margin-top: 50px;
+    margin-top: -30px;
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
-    width: 79%;
+    width: 400px;
+    height: 200px;
     margin-left: 40px;
     overflow-y: scroll;
 }
+
+.project__links__container{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin-top: -30px;
+    margin-left: 0px;
+    height: 200px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+
+    align-items: center;
+   
+}
+
+.upload__link__input{
+    height: 20px;
+    width: 250px;
+    margin-left: 70px
+}
+
+/*scrollbar*/
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  }
 
 .submit_request{
     display: flex;
@@ -160,7 +187,13 @@ p{
 .upload__image__container{
     display: flex;
     flex-flow: row;
-    
+
+}
+.upload__link__container{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+ 
 }
 
 .filepicker{
@@ -168,17 +201,90 @@ p{
     margin-top: 18px;
 }
 
-.add__new__image:hover{
+.add__new__image:hover, .add__new__link:hover{
     text-decoration: underline;
     cursor: pointer;
 }
 
-.delete__upload__file:hover{
+
+.delete__upload__file:hover, .delete__link__field:hover{
     text-decoration: underline;
     cursor: pointer;
 }
 
-.add__new__image, .delete__upload__file{
+.delete__link__field{
+    margin-left: 30px;
+}
+
+.add__new__image, .delete__upload__file, .delete__link__field, .add__new__link{
     color: #009444;
     opacity: 1;
 }
+
+.add__new__link{
+    margin-left: -40px;
+}
+
+
+select {
+    border-radius: 20px;   
+    outline: none;
+    height: 54px;
+    border: #DAD8D8;
+    border-style: groove;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    width: 460px;
+    padding-left: 10px;
+    margin-bottom: 50px;
+    
+}
+
+label{
+    color: black;
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 5px;
+}
+
+.upload__descriptions{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.images__title{
+    margin-left: 35px;
+}
+.icons__title{
+    margin-left: 350px;
+}
+
+.icons__title > img{
+    margin-left: 10px;
+}
+
+.about__us__project__request{
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 88%;
+    margin-bottom: 65px;
+}
+
+.about__us__txtArea{
+    width: 96%;
+    height: 180px;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: rgb(52, 52, 52);
+    border: #DAD8D8;
+    border-style: groove;
+    border-radius: 20px;
+    outline:none;
+}
+
