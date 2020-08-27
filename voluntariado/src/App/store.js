@@ -16,7 +16,7 @@ export const configureStore = () => {
     {
       key: 'root',
       storage,
-      whitelist: [],
+      whitelist: ['auth'],
     },
     reducer,
   );

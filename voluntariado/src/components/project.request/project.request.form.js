@@ -4,13 +4,13 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/projectRequestForm.css';
 import * as Selectors from '../../redux/reducers';
-import * as actions from '../../redux/actions/projectRequest';
+import * as actions from '../../redux/actions/project.request';
 import {uuid} from 'uuidv4';
 import {connect} from 'react-redux';
 
 import Header from '../header';
-import Faculties from '../faculties/faculties';
-import Majors from '../majors/majors';
+import Faculties from '../faculties.select/faculties';
+import Majors from '../majors.select/majors';
 import LabeledInputList from '../labeled.input/labeled.input.list';
 import Tags from '../tags';
 
@@ -199,7 +199,7 @@ const ProjectRequestForm = ({onSubmitData, major, faculty, tags}) => {
                         links,
                         tagList,
                         );
-                        setTimeout(() => {history.push('/');}, 3000);
+                        setTimeout(() => {history.push('/login');}, 3000);
                         notify(true)
                     }}>Enviar solicitud</button>
                 </div>

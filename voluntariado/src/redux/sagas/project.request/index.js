@@ -11,11 +11,16 @@ import {
 import * as selectors from '../../reducers';
 import * as actions from '../../actions/project.request';
 import * as types from '../../types/project.request';
+import * as schemas from '../../schemas/project.request.approval';
+import {normalize} from 'normalizr';
+import * as projectRequestApprovalSelectors from '../../actions/project.request.approval';
+import * as projectRequestApprovalTypes from '../../types/project.request.approval';
+import * as projectRequestApprovalActions from '../../actions/project.request.approval';
+
 import {API_BASE_URL} from '../../../config';
 import axios from 'axios';
 
 function* postProjectRequest(action) {
-  console.log(action.payload);
     try {
         const {aboutUs, description, faculty, images, inputValues, links, major, requirements, tags} = action.payload;
         const body = {
@@ -67,8 +72,6 @@ function* postProjectRequest(action) {
                 'content-type' : 'multipart/form-data'
             }
         })
-
-
         } else {
           const {non_field_errors} = yield response.json();
           yield put(actions.failPostProjectRequestForm(non_field_errors[0]));
@@ -76,9 +79,53 @@ function* postProjectRequest(action) {
     } catch (error) {
         yield put(actions.failPostProjectRequestForm(error));
     }
+}
+
+function* fetchProjectRequest(action){
+  try {
+    const isAuth = yield select(selectors.isAuthenticated);
+
+    if(isAuth){
+      const token = yield select(selectors.getAuthToken);
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/solicitud-proyecto/`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${token}`,
+          },
+        },
+      );
+      
+      if (response.status === 200) {
+        const jsonResult = yield response.json();
+        const {
+          entities: { requests },
+          result,
+        } = normalize(jsonResult, schemas.requests);
+
+        yield put(
+          projectRequestApprovalActions.completeFetchingProjectRequest(
+            requests, 
+            result)
+          );
+      } else {
+        const {non_field_errors} = yield response.json();
+        yield put(projectRequestApprovalActions.failFetchingProjectRequest(non_field_errors[0]));
+      }
+    }
+  } catch (error) {
+      yield put(projectRequestApprovalActions.failFetchingProjectRequest(error));
   }
+}
 
   export function* watchProjectRequestPosting() {
     yield takeEvery(types.POST_PROJECT_REQUEST_FORM_STARTED, postProjectRequest);
+  }
+
+  export function* watchProjectRequestFetching() {
+    yield takeEvery(projectRequestApprovalTypes.FETCHING_REQUESTS_STARTED, fetchProjectRequest)
   }
   

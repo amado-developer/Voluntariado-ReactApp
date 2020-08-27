@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import * as Selectors from '../../redux/reducers';
-import * as actions from '../../redux/actions/projectRequest';
+import * as actions from '../../redux/actions/project.request';
 import Major from './major';
-import major from './major';
+
 
 const Majors = ({majors, onMajorSelected}) =>{
     return(

@@ -1,0 +1,69 @@
+.side__bar__container{
+    width: 125px;
+    height: 100vh;
+    background-color: #078b45;
+}
+
+.side__bar__profile__picture__container{
+    width: 100%;
+    height: 14.4%;
+    background-color: #343434;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.side__bar__profile__picure{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border-radius: 100px;
+}
+
+.principal__profile__picture{
+    width: 75px;
+    height: 75px;
+    border-radius: 100px;
+}
+
+.home__icon{
+    width: 40px;
+    height: 40px;
+}
+
+.side__bar__profile__name{
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.profile__name{
+    color: white;
+    align-self: center;
+    text-align: justify;
+    font-size: medium;
+}
+
+.side__bar__menu{
+    align-items: center;
+    justify-items: center;
+}
+
+.home__icon__container{
+    display: flex;
+    margin-top: 15px;
+    align-content: center;
+    justify-content: center;
+}
+
+/* mover el css */
+.right__container{
+    width: 100%;
+}
+.admin__home__container{
+    display: flex;
+}

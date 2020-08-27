@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../../redux/actions/projectRequest';
+import * as actions from '../../redux/actions/project.request';
 import * as Selectors from '../../redux/reducers';
 import Faculty from './faculty';
 

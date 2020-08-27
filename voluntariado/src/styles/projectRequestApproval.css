@@ -1,5 +1,25 @@
+@font-face {
+    font-family: NTR;
+    src: url('../fonts/NTR-Regular.ttf');
+}
+
 .project__request__approval__container{
     margin-bottom: 40px;
     border: black;
     border-style: groove;
+}
+
+.pending__projects__container{
+    /* border-bottom-style: groove;
+    border-color: #078b45;
+    border-top-style: groove; */
+    height: 900px;
+    margin: 0 10px 0 10px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    
+}
+
+.home__header{
+    padding-left: 70px;
 }

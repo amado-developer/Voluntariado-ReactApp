@@ -1,0 +1,86 @@
+@font-face {
+    font-family: NTR;
+    src: url('../fonts/NTR-Regular.ttf');
+}
+
+.pending__project {
+    border-style: groove;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 32px 32px 32px;
+}
+
+.pending__project__header {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    height: 50px;
+    justify-content: space-between;
+    padding-right: 32px;
+}
+
+.pending__project__buttoms {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: row;
+    padding-right: 32px;
+}
+
+.pending__project__buttoms button {
+    margin-left: 25px;
+}
+
+.pending__project__container {
+    font-family: NTR;
+    padding: 10px 35px 20px 50px;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+.pending__project__name {
+    font-size: 36px;
+}
+
+p {
+    font-size: 30px;
+    margin: 0 0 0 0;
+    text-align: justify;
+}
+
+.pending__project__name {
+    color: #343434;
+    opacity: 1;
+}
+
+.pending__project__company {
+    opacity: 1;
+    color: #078b45;
+}
+
+.pending__project__buttoms button {
+    background-color: #078b45;
+    margin-top: 10px;
+    outline: none;
+    width: 200px;
+    height: 55px;
+    border: none;
+    color: white;
+    font-size: 28px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.pending__project__buttoms button:hover {
+    opacity: 0.5;
+}
+
+.pending__project__buttoms button:active {
+    background-color: #078b45;
+    box-shadow: 0 5px #666;
+    transform: translateY(-4px);
+}

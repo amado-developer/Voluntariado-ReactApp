@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
+import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import '../../styles/authForm.css';
 import {connect} from 'react-redux';
-import * as projectRequestActions from '../../redux/actions/projectRequest';
+import * as projectRequestActions from '../../redux/actions/project.request';
 import * as authActions from '../../redux/actions/authorization';
 
 const AuthForm = ({onClick, onSubmit}) => {
+    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     return(
@@ -19,7 +21,7 @@ const AuthForm = ({onClick, onSubmit}) => {
             <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="password_input" />
         </div>
         <div className="submit_container">
-            <button type="submit" onClick={() => onSubmit(email, password)} className="submit_btn">
+            <button type="submit" onClick={() => {onSubmit(email, password);  history.push('/')}} className="submit_btn">
                 Iniciar
             </button>
             <Link to="/project-request"><p className="contacto" onClick={() => onClick()}>
