@@ -1,5 +1,7 @@
-import * as types from '../../types/project.request.approval';
+import omit from 'lodash/omit';
 import {combineReducers} from 'redux';
+import * as types from '../../types/project.request.approval';
+
 
 const byId = (state = {}, action) => {
     switch (action.type) {
@@ -16,11 +18,17 @@ const byId = (state = {}, action) => {
       case types.FETCHING_REQUESTS_STARTED: {
         return {};
       }
+      case types.PATCH_REQUEST_APPROVED_COMPLETED:{
+        return omit(state, action.payload.id);
+      }
+      case types.DELETE_REQUEST_COMPLETED:{
+        return omit(state, action.payload.id);
+      }
       default: {
         return state;
       }
     }
-  };
+};
 
 const order = (state = [], action) => {
     switch (action.type) {
@@ -29,6 +37,12 @@ const order = (state = [], action) => {
       }
       case types.FETCHING_REQUESTS_STARTED: {
         return [];
+      }
+      case types.PATCH_REQUEST_APPROVED_COMPLETED:{
+        return state.filter(id => id !== action.payload.id);
+      }
+      case types.DELETE_REQUEST_COMPLETED:{
+        return state.filter(id => id !== action.payload.id);
       }
     }
     return state;

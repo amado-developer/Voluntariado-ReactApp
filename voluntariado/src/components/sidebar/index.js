@@ -1,12 +1,13 @@
 import React from 'react';
-import samuel from '../../images/samuel.jpeg'
+// import samuel from '../../images/samuel.jpeg'
+import directora from '../../images/directora.jpeg'
 import homeIcon from '../../images/home.png'
 const SidebarMenu = (props) => {
     return(
         <div className="side__bar__container">
           <div className="side__bar__profile__picture__container">
             <div className="side__bar__profile__picure">
-              <img src={samuel} alt='Profile Picture' className="principal__profile__picture"/>
+              <img src={directora} alt='Profile Picture' className="principal__profile__picture"/>
             </div>
           </div>
           <div className="side__bar__menu">

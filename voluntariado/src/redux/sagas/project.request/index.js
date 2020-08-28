@@ -89,7 +89,7 @@ function* fetchProjectRequest(action){
       const token = yield select(selectors.getAuthToken);
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/solicitud-proyecto/`,
+        `${API_BASE_URL}/solicitud-proyecto/pending-requests/`,
         {
           method: 'GET',
           headers: {
@@ -121,11 +121,83 @@ function* fetchProjectRequest(action){
   }
 }
 
+function* approveProjectRequest(action){
+  try {
+    const isAuth = yield select(selectors.isAuthenticated);
+    if(isAuth){
+      const token = yield select(selectors.getAuthToken);
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/solicitud-proyecto/${action.payload.id}/`,
+        {
+          method: 'PATCH',
+          body: JSON.stringify({is_approved: true}),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${token}`,
+          },
+        },
+      );
+      
+      if (response.status === 200) {
+        yield put(
+          projectRequestApprovalActions.completeApprovingProjectRequest(action.payload.id))
+      } else {
+        const {non_field_errors} = yield response.json();
+        yield put(projectRequestApprovalActions.failApprovingProjectRequest(non_field_errors[0]));
+      }
+    }
+  } catch (error) {
+      yield put(projectRequestApprovalActions.failApprovingProjectRequest(error));
+  }
+}
+
+function* rejectProjectRequest(action){
+  try {
+    const isAuth = yield select(selectors.isAuthenticated);
+    if(isAuth){
+      const token = yield select(selectors.getAuthToken);
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/solicitud-proyecto/${action.payload.id}/`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${token}`,
+          },
+        },
+      );
+      console.log(response.status);
+      if (response.status === 204) {
+        yield put(
+          projectRequestApprovalActions.completeRejectingProjectRequest(action.payload.id))
+      } else {
+        const {non_field_errors} = yield response.json();
+        yield put(projectRequestApprovalActions.failRejectingProjectRequest(non_field_errors[0]));
+      }
+    }
+  } catch (error) {
+      yield put(projectRequestApprovalActions.failRejectingProjectRequest(error));
+  }
+}
+
   export function* watchProjectRequestPosting() {
     yield takeEvery(types.POST_PROJECT_REQUEST_FORM_STARTED, postProjectRequest);
   }
 
   export function* watchProjectRequestFetching() {
-    yield takeEvery(projectRequestApprovalTypes.FETCHING_REQUESTS_STARTED, fetchProjectRequest)
+    yield takeEvery(projectRequestApprovalTypes.FETCHING_REQUESTS_STARTED, 
+      fetchProjectRequest)
+  }
+
+  export function* watchProjectRequestApproval(){
+    yield takeEvery(projectRequestApprovalTypes.PATCH_REQUEST_APPROVED_STARTED, 
+      approveProjectRequest)
+  }
+
+  export function* watchProjectRequestRejection(){
+    yield takeEvery(projectRequestApprovalTypes.DELETE_REQUEST_STARTED, 
+      rejectProjectRequest)
   }
   

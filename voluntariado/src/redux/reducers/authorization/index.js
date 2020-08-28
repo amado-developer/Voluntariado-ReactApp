@@ -15,7 +15,6 @@ const token = (state = null, action) => {
     case types.AUTHENTICATION_FAILED: {
       return null;
     }
-
   }
 
   return state;
@@ -51,7 +50,6 @@ const decoded = (state = null, action) => {
     case types.AUTHENTICATION_FAILED: {
       return null;
     }
-
   }
 
   return state;
