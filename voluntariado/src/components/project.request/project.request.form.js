@@ -13,6 +13,7 @@ import Faculties from '../faculties.select/faculties';
 import Majors from '../majors.select/majors';
 import LabeledInputList from '../labeled.input/labeled.input.list';
 import Tags from '../tags';
+import ColoredBar from '../header/colored.bar';
 
 import linkdInIcon from '../../images/linkedin_icon.png';
 import facebookIcon from '../../images/facebook_icon.png';
@@ -72,7 +73,7 @@ const ProjectRequestForm = ({onSubmitData, major, faculty, tags}) => {
     return(
     <div className="project_request_container">
         <Header color={'#343434'} />
-        <div className="blue_bar"></div>
+        <ColoredBar color="#98C6DF" height="30px"/>
         <div className="project_request_form">
             <div className="left_container">
                 <LabeledInputList values={inputListValueChange} />

@@ -22,6 +22,8 @@
 
 .home__header{
     padding-left: 70px;
+    margin-top: -40px;
+    font-family: NTR;
 }
 
 .empty__projects{
