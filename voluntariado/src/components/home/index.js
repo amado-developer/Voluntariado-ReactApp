@@ -21,7 +21,6 @@ const AdminHome = ({onLoad}) => {
                 <Header color={'white'} logo={Logo} />
             </div>
             <div className="content__container">
-                
                 <PendingProjects />
             </div>
         </div>

@@ -1,0 +1,67 @@
+
+.terms__wrapper{
+    background-image: url('../images/terms_background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.terms__instructions__wrapper{
+    background-color: white;
+    width: 35%;
+    height: 65%;
+    border-radius: 5rem;
+    padding: 12rem 12rem 0rem 12rem;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.conditions__wrapper{
+    margin: 4rem 0 4rem 0;
+}
+
+.terms__instructions__btns{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 4rem;
+}
+
+/*arreglar*/
+.terms__instructions__btns > button{
+    width: 25%;
+    height: 14rem;
+    font-size: 5rem;
+    border-radius: 2rem;
+    border-color: #343434;
+    background-color: #078b45;
+    outline: none;
+    color: white;
+
+}
+
+.terms__instructions__btns > button:hover{
+    opacity: 0.5;
+}
+
+.terms__instructions__btns button::active{
+    background-color: #078b45;
+    box-shadow: 0 4rem #666;
+    transform: translateX(-10rem);
+}
+
+.instruccions__wrapper > p, label, .conditions__wrapper > p, label{
+    font-size: 6rem;
+}
+
+.terms__reject__btn{
+    margin-left: 4rem;
+}

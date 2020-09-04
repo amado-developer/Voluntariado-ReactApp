@@ -1,18 +1,27 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import '../../styles/project.request.detail.css';
 import Header from '../header';
 import ColoredBar from '../header/colored.bar';
 import Logo from '../../images/white_logo.png';
 import Carrousel from '../carousel';
-import '../../styles/project.request.detail.css';
+import * as selectors from '../../redux/reducers';
 
-// import Image1 from '../../images/Meliodas/1.png'
-// import Image2 from '../../images/Meliodas/2.png'
 
-import Image1 from '../../images/1.jpeg';
-import Image2 from '../../images/2.jpg';
-import Image3 from '../../images/3.jpeg';
-const ProjectRequestDetail = () =>{
-    const images=[Image1, Image2, Image3];
+const ProjectRequestDetail = ({data, images, links, isLoadingImages, isLoadingLinks}) =>{
+    const companyName = data.company_name;
+    const projectName = data.project_name;
+    const companyAddress = data.company_address;
+    const emailAddress = data.email_address;
+    const phoneNumber = data.phone_number;
+    const aboutUs = data.about_us;
+    const {description, tags, requirements} = data;
+
+    const imageArray = []
+    if(!isLoadingImages){
+        images.map(({image}) => imageArray.push(image));
+    }
+
     return(
     <div>
         <Header color="#343434" logo={Logo} />
@@ -20,63 +29,48 @@ const ProjectRequestDetail = () =>{
         <div className="project__request__detail__container">
             <div className="project__request__detail__company_container">
                 <div className="project__request__detail__company__name__container">
-                    <p className="project__request__detail__company__name">Nombre de la empresa</p>
+                    <p className="project__request__detail__company__name">{companyName}</p>
                 </div>
                 <div className="project__request__detail__company__info">
                     <div className="project__request__detail__carousel">
-                        <Carrousel images={images} maxHeight='500px' />
+                        <Carrousel images={imageArray} maxHeight='500px' />
                     </div>
                     <div className="project__request__detail__about__us__container">
-                        <p className="project__request__detail__about__us">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend lectus nec dictum posuere. 
-                            Vestibulum viverra dictum porttitor. In mollis ligula a odio blandit maximus a eu erat. Nam arcu nibh, 
-                            viverra nec erat in, viverra dictum dui. Vestibulum faucibus, quam in posuere vehicula, eros enim mattis mauris, 
-                            nec euismod ipsum lectus
-                            Lorem ipsum dolor sit amet,
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend lectus nec dictum posuere. 
-                            Vestibulum viverra dictum porttitor. In mollis ligula a odio blandit maximus a eu erat. Nam arcu nibh, 
-                            viverra nec erat in, viverra dictum dui. Vestibulum faucibus, quam in posuere vehicula, eros enim mattis mauris, 
-                            nec euismod ipsum lectus
-                            Lorem ipsum dolor sit amet,
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend lectus nec dictum posuere. 
-                            Vestibulum viverra dictum porttitor. In mollis ligula a odio blandit maximus a eu erat. Nam arcu nibh, 
-                            viverra nec erat in, viverra dictum dui. Vestibulum faucibus, quam in posuere vehicula, eros enim mattis mauris, 
-                            nec euismod ipsum lectus
-                            Lorem ipsum dolor sit amet,
+                        <p className="project__request__detail__about__us">
+                            {aboutUs}
                         </p>
                     </div>
                 </div>
             </div>
             <div className="project__request__detail__project__container"> 
                 <div className="project__request__detail__project__data">
-                    <p className="project__request__detail__project__name">Proyecto Kuul <p>Tags</p></p>
+                    <p className="project__request__detail__project__name">{projectName} </p>
+                    <p>{tags}</p>
                     <p className="project__request__detail__project__description">
-                    Lorem ipsum dolor sit amet,
-                     consectetur adipiscing elit. In eleifend lectus nec dictum posuere. Vestibulum viverra dictum porttitor. 
-                     In mollis ligula a odio blandit maximus a eu erat. Nam arcu nibh, viverra nec erat in, viverra dictum dui. 
-                     Vestibulum faucibus, quam in posuere vehicula, eros enim mattis mauris, nec euismod ipsum lectus 
-                     Lorem ipsum dolor sit amet,
+                        {description}
                     </p>
-                    <p className="project__request__detail__project__requirements__title">Requerimientos</p>
-                    <p className="project__request__detail__project__requirements">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend lectus nec dictum posuere. 
-                        Vestibulum viverra dictum porttitor. In mollis ligula a odio blandit maximus a eu erat. Nam arcu nibh, 
-                        viverra nec erat in, viverra dictum dui. Vestibulum faucibus, quam in posuere vehicula, eros enim mattis mauris, 
-                        nec euismod ipsum lectus
+                    <p className="project__request__detail__project__requirements__title">Requisitos</p>
+                    <p className="project__request__detail__project__requirements">
+                        {requirements}
                     </p>
                 </div>
             </div>
             <div className="project__request__detail__footer">
                 <div className="project__request__detail__footer__left__wrapper">
                         <p className="project__request__detail__footer__left__title">Contacto</p>
-                        <p>Address: address address address address address</p>
-                        <p>Email:  el email el email@hotmail.com</p>
-                        <p>Telefono: 22253485</p>
+                        <p>Address: {companyAddress}</p>
+                        <p>Email: {emailAddress}</p>
+                        <p>Telefono: {phoneNumber}</p>
                        
                     </div>
                 <div className="project__request__detail__footer__right__wrapper">
                     <p>Enlaces</p>
-                    <a href="google.com">www.google.com</a>
-                    <a href="facebook.com">www.facebook.com</a>
-                    <a href="inkedin.com">www.linkedin.com</a>
+                    {
+                        !isLoadingLinks &&(links.map(e =>{
+                            const {id, link} = e;
+                            return(<a href="#" key={id}>{link}</a>)
+                        })) 
+                    }
                 </div>
             </div>
         </div>
@@ -84,4 +78,13 @@ const ProjectRequestDetail = () =>{
     )
 }
 
-export default ProjectRequestDetail;
+export default connect(
+    state=>({
+        data:  selectors.getProjectRequest(state, selectors.getSelectedProjectRequest(state)),
+        images: selectors.getProjectRequestImages(state),
+        links: selectors.getProjectRequestLinks(state),
+        isLoadingImages: selectors.isFetchingProjectImages(state),
+        isLoadingLinks: selectors.isFetchingProjectLinks(state),
+    })
+)
+(ProjectRequestDetail);

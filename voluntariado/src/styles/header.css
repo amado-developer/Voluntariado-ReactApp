@@ -1,12 +1,13 @@
 .header{
-    height: 150px;
+    height: 32rem;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
 }
 
 .logo{
-    margin-top: 16px;
-    margin-right: 50px;
-    width: 315px;
-    height: 100px;
+    margin-top: 4rem;
+    margin-right: 13rem;
+    width: 79rem;
+    height: 25rem;
 }

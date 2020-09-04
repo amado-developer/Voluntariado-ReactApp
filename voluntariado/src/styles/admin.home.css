@@ -1,6 +1,6 @@
 .side__bar__container{
     width: 125px;
-    height: 100vh;
+    height: 100vmax;
     background-color: #078b45;
 }
 

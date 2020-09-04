@@ -2,9 +2,6 @@ import {
     call,
     takeEvery,
     put,
-    // race,
-    // all,
-    delay,
     select,
   } from 'redux-saga/effects';
 
@@ -12,8 +9,9 @@ import * as selectors from '../../reducers';
 import * as actions from '../../actions/project.request';
 import * as types from '../../types/project.request';
 import * as schemas from '../../schemas/project.request.approval';
+import * as imageSchemas from '../../schemas/project.requests.approval.images';
+import * as linkSchemas from '../../schemas/project.requests.approval.links';
 import {normalize} from 'normalizr';
-import * as projectRequestApprovalSelectors from '../../actions/project.request.approval';
 import * as projectRequestApprovalTypes from '../../types/project.request.approval';
 import * as projectRequestApprovalActions from '../../actions/project.request.approval';
 
@@ -182,22 +180,101 @@ function* rejectProjectRequest(action){
   }
 }
 
-  export function* watchProjectRequestPosting() {
-    yield takeEvery(types.POST_PROJECT_REQUEST_FORM_STARTED, postProjectRequest);
-  }
+function* fetchProjectImages(action){
+  try{
+    const isAuth = yield select(selectors.isAuthenticated);
+    if(isAuth){
+      const token = yield select(selectors.getAuthToken);
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/project-images/get-images/?project=${action.payload.id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${token}`,
+          },
+        });
 
-  export function* watchProjectRequestFetching() {
-    yield takeEvery(projectRequestApprovalTypes.FETCHING_REQUESTS_STARTED, 
-      fetchProjectRequest)
-  }
+        if(response.status === 200){
+          const jsonResult = yield response.json();
+          const {
+            entities: { images },
+            result,
+          } = normalize(jsonResult, imageSchemas.images);
 
-  export function* watchProjectRequestApproval(){
-    yield takeEvery(projectRequestApprovalTypes.PATCH_REQUEST_APPROVED_STARTED, 
-      approveProjectRequest)
+          yield put(
+            projectRequestApprovalActions.completeFetchingProjectRequestImages(
+              images, 
+              result
+            )
+          );
+        } else {
+        
+          const {non_field_errors} = yield response.json();
+          yield put(projectRequestApprovalActions.failFetchingProjectRequestImages(non_field_errors[0]));
+        }
+    }
+  }catch(error){
+    yield put(projectRequestApprovalActions.failFetchingProjectRequestImages(error));
   }
+}
 
-  export function* watchProjectRequestRejection(){
-    yield takeEvery(projectRequestApprovalTypes.DELETE_REQUEST_STARTED, 
-      rejectProjectRequest)
+function* fetchProjectLinks(action){
+  try{
+    const isAuth = yield select(selectors.isAuthenticated);
+    if(isAuth){
+      const token = yield select(selectors.getAuthToken);
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/project-links/get-links/?project=${action.payload.id}`,
+        {
+          method: 'GET',
+          headers:{
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${token}`,
+          },
+        });
+
+        if(response.status === 200){
+          const jsonResult = yield response.json();
+          const {
+            entities : { links },
+            result,
+          } = normalize(jsonResult, linkSchemas.links);
+        
+          yield put(projectRequestApprovalActions.completeFetchingProjectRequestLinks(links, result));
+        }else{
+          const {non_field_errors} = yield response.json();
+          yield put(projectRequestApprovalActions.failFetchingProjectRequestLinks(non_field_errors[0]));
+        }
+    }
+  }catch (error){
+    yield put(projectRequestApprovalActions.failFetchingProjectRequestLinks(error));
   }
+}
+
+export function* watchProjectRequestPosting() {
+  yield takeEvery(types.POST_PROJECT_REQUEST_FORM_STARTED, postProjectRequest);
+}
+export function* watchProjectRequestFetching() {
+  yield takeEvery(projectRequestApprovalTypes.FETCHING_REQUESTS_STARTED, 
+    fetchProjectRequest)
+}
+export function* watchProjectRequestImagesFecthing() {
+  yield takeEvery(projectRequestApprovalTypes.FETCHING_PROJECT_REQUEST_IMAGES_STARTED, 
+    fetchProjectImages)
+}
+export function* watchProjectRequestLinksFecthing() {
+  yield takeEvery(projectRequestApprovalTypes.FETCHING_PROJECT_REQUEST_LINKS_STARTED, 
+    fetchProjectLinks)
+}
+export function* watchProjectRequestApproval(){
+  yield takeEvery(projectRequestApprovalTypes.PATCH_REQUEST_APPROVED_STARTED, 
+    approveProjectRequest)
+}
+export function* watchProjectRequestRejection(){
+  yield takeEvery(projectRequestApprovalTypes.DELETE_REQUEST_STARTED, 
+    rejectProjectRequest)
+}
   

@@ -1,7 +1,3 @@
-@font-face {
-    font-family: NTR;
-    src: url('../fonts/NTR-Regular.ttf');
-}
 
 .project__request__approval__container{
     margin-bottom: 40px;
@@ -23,7 +19,6 @@
 .home__header{
     padding-left: 70px;
     margin-top: -40px;
-    font-family: NTR;
 }
 
 .empty__projects{

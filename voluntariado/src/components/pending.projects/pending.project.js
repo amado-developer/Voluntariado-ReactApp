@@ -3,8 +3,10 @@ import '../../styles/pending.project.css';
 import {connect} from 'react-redux';
 import * as selectors from '../../redux/reducers';
 import * as actions from '../../redux/actions/project.request.approval';
+import {useHistory} from 'react-router-dom';
 
-const PendingProject = ({data, onAccept, onReject}) => {
+const PendingProject = ({data, onAccept, onReject, onSelect}) => {
+    const history = useHistory();
     const {date, description} = data;
     const isoDate = new Date(date).toLocaleDateString()
 
@@ -25,6 +27,7 @@ const PendingProject = ({data, onAccept, onReject}) => {
                 <div className="pending__project__buttoms">
                     <button onClick={() => onAccept()} > Aceptar </button>
                     <button onClick={() => onReject()}> Rechazar </button>
+                    <button onClick={() => { onSelect(); history.push("/project-request-detail");}}>Ver mas</button>
                 </div>
             </div>
         </div>
@@ -41,6 +44,12 @@ export default connect(
         },
         onReject(){
             dispatch(actions.startRejectingProjectRequest(index))
+        },
+        
+        onSelect(){
+            dispatch(actions.selectProjectRequest(index));
+            dispatch(actions.startFetchingProjectRequestImages(index));
+            dispatch(actions.startFetchingProjectRequestLinks(index));
         }
     })
 )

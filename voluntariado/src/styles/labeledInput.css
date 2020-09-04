@@ -1,26 +1,24 @@
 .labeled__input__container{
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .labeled__input__label{
     color: black;
-    font-size: 30px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    margin-bottom: 5px;
+    font-size: 7rem;
+    margin-bottom: 1rem;
+    width: 100%;
 }
 
 .labeled__input__input{
     border: #DAD8D8;
     border-style: groove;
-    border-radius: 20px;
-
-    height: 44px;
-    width: 431px;
+    border-radius: 5rem;
+    height: 11rem;
     outline: none;
-    padding-left: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    padding-left: 5rem;
+    font-size: 5rem;
     color: rgb(52, 52, 52);
-    margin-bottom: 50px;
+    margin-bottom: 12rem;
 }

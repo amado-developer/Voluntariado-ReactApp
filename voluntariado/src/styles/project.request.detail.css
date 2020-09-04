@@ -1,16 +1,9 @@
-@font-face {
-    font-family: NTR;
-    src: url('../fonts/NTR-Regular.ttf');
-}
-
 .project__request__detail__company_container{
     padding-bottom: 80px;
 }
 .project__request__detail__container{
     display: flex;
-    flex-flow: column;
-    font-family: NTR;
-    
+    flex-flow: column;    
 }
 
 .project__request__detail__company__name__container{
@@ -25,6 +18,11 @@
 .project__request__detail__company__name{
     opacity: 1;
     font-size: 56px;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 
@@ -69,7 +67,6 @@
 
 .project__request__detail__project__container{
     background-color: #f2f2f2;
-    font-family: NTR;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -111,7 +108,6 @@
     justify-content: space-between;
     background-color: rgb(224, 83, 63);
     color: white;
-    font-family: NTR;
     padding-top: 75px;
     padding-bottom: 50px;
 }

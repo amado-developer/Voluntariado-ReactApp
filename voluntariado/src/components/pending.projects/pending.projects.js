@@ -5,7 +5,6 @@ import PendingProject from './pending.project';
 import '../../styles/projectRequestApproval.css';
 const PendingProjects = ({user, data=[]}) =>{
     const userName = user.first_name + " " + user.last_name;
-    console.log(data);
     return(
         <div>
             <div className="home__header">

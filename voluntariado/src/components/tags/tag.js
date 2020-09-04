@@ -7,7 +7,7 @@ import '../../styles/tags.css';
 const Tag = ({tag, onTagDeleted}) =>{
     return(
         <div className="tag__container">
-            <button type="button" onClick={() => onTagDeleted(tag.id)}>{tag.tag}</button>
+            <button type="button" onClick={() => onTagDeleted(tag.id)}>{`#${tag.tag}`}</button>
         </div>                 
    
     )

@@ -1,8 +1,3 @@
-@font-face {
-    font-family: NTR;
-    src: url('../fonts/NTR-Regular.ttf');
-}
-
 .pending__project {
     border-style: groove;
     display: flex;
@@ -31,7 +26,6 @@
 }
 
 .pending__project__container {
-    font-family: NTR;
     padding: 10px 35px 20px 50px;
 }
 

@@ -4,22 +4,17 @@ import * as selectors from '../../redux/reducers';
 import * as actions from '../../redux/actions/tags';
 import { v4 } from 'uuid';
 import Tag from './tag';
+import TagImage from '../../images/tag.png';
 import '../../styles/tags.css';
 const Tags = ({tags, onTagAdded}) =>{
     const [tag, setTag] = useState('')
     const tagInput = useRef();
     return(
         <div className="tags__area">
-            <div className="created__tag__container">
-            {
-                tags.map(element => {
-                    return <Tag tag={element} key={element.id}/>
-                })
-            }
-            </div>
             
-            <div className="ui right labeled left icon input">
-                <i className="tags icon"></i>
+            <label>#Tags</label>
+            <div className="tags__input__container">
+               
                 <input onKeyDown={e => {
                     if(e.key === 'Enter'){
                         if(tag !==''){
@@ -28,12 +23,21 @@ const Tags = ({tags, onTagAdded}) =>{
                             setTag('');
                         }
                     }
-                } ref={tagInput} type="text" placeholder="Inserte tags" value={tag} 
+                } ref={tagInput} type="text" placeholder="Inserte tags" value={tag} className='tags_input'
                 onChange={e => setTag(e.target.value)} />
-                <a className="ui tag label" onClick={() => 
+                 <img src={TagImage} className="tags__icon"></img>
+                <a className="add_tag_label" onClick={() => 
                     {if(tag !== ''){onTagAdded(tag, v4())}; setTag(''); tagInput.current.focus();}}>
                     Agregar Tag
                 </a>
+            </div>
+
+            <div className="created__tag__container">
+            {
+                tags.map(element => {
+                    return <Tag tag={element} key={element.id}/>
+                })
+            }
             </div>
         </div>
     )

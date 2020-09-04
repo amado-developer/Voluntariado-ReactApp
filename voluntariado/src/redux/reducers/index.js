@@ -52,5 +52,24 @@ export const getProjectRequest = (state, id) =>
 ProjectRequestApprovalSelectors.getProjectRequest(state.projectRequestApproval, id);
 export const getProjectRequests = state => 
 ProjectRequestApprovalSelectors.getProjectRequests(state.projectRequestApproval);
-export const isFeching = state => FacultiesSelectors.getIsFeching(state.projectRequestApproval);
-export const getError = state => FacultiesSelectors.getError(state.projectRequestApproval);
+
+export const getProjectRequestImage = (state, id) => 
+ProjectRequestApprovalSelectors.getProjectImage(state.projectRequestApproval, id);
+export const getProjectRequestImages = state => 
+ProjectRequestApprovalSelectors.getProjectImages(state.projectRequestApproval);
+export const isFetchingProjectImages = state =>
+ProjectRequestApprovalSelectors.getIsFetchingProjectImages(state.projectRequestApproval);
+
+export const getProjectRequestLink = (state, id) => 
+ProjectRequestApprovalSelectors.getProjectLink(state.projectRequestApproval, id);
+export const getProjectRequestLinks = state => 
+ProjectRequestApprovalSelectors.getProjectLinks(state.projectRequestApproval);
+export const isFetchingProjectLinks = state =>
+ProjectRequestApprovalSelectors.getIsFetchingProjectLinks(state.projectRequestApproval);
+
+export const isFetching = state => 
+ProjectRequestApprovalSelectors.getIsFetching(state.projectRequestApproval);
+export const getError = state => 
+ProjectRequestApprovalSelectors.getError(state.projectRequestApproval);
+export const getSelectedProjectRequest = state => 
+ProjectRequestApprovalSelectors.getSelectedProjectRequest(state.projectRequestApproval)

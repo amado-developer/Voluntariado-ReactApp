@@ -1,5 +1,4 @@
 import React from 'react';
-// import samuel from '../../images/samuel.jpeg'
 import directora from '../../images/directora.jpeg'
 import homeIcon from '../../images/home.png'
 const SidebarMenu = (props) => {
