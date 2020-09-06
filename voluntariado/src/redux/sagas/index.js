@@ -7,6 +7,7 @@ import {watchProjectRequestPosting,
         watchProjectRequestRejection,
         watchProjectRequestImagesFecthing,
         watchProjectRequestLinksFecthing,
+        watchProjectRequestEmailPosting,
       } from '../sagas/project.request';
 import {watchLoginStarted} from '../sagas/authorization';
 function* mainSaga() {
@@ -20,6 +21,7 @@ function* mainSaga() {
     fork(watchProjectRequestRejection),
     fork(watchProjectRequestImagesFecthing),
     fork(watchProjectRequestLinksFecthing),
+    fork(watchProjectRequestEmailPosting),
   ]);
 }
   

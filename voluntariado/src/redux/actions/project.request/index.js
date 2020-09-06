@@ -21,7 +21,7 @@ export const failFetchingFaculties = error => ({
 //MAJORS
 export const startFetchingMajors = faculty => ({
     type: types.FETCHING_MAJORS_STARTED,
-    payload: {faculty}
+    payload: {faculty},
   });
   
 export const completeFetchingMajors = (entities, order) => ({
@@ -41,7 +41,7 @@ export const startPostProjectRequestForm = (
   id, inputValues, description, requirements, faculty, major, aboutUs, images, links, tags
   ) => ({
   type: types.POST_PROJECT_REQUEST_FORM_STARTED,
-  payload: {id, inputValues, description, requirements, faculty, major, aboutUs, images, links, tags}
+  payload: {id, inputValues, description, requirements, faculty, major, aboutUs, images, links, tags},
 });
 
 export const completePostProjectRequestForm = (response) => ({
@@ -56,10 +56,25 @@ export const failPostProjectRequestForm = error => ({
 
 export const selectFaculty = faculty => ({
   type: types.SELECT_FACULTY,
-  payload: {faculty}
+  payload: {faculty},
 });
 
 export const selectMajor = major => ({
   type: types.SELECT_MAJOR,
-  payload: {major}
+  payload: {major},
+});
+
+export const startSendingRequestEmail = (major, company, projectName) =>({
+  type: types.SENDING_REQUEST_EMAIL_STARTED,
+  payload: {major, company, projectName},
+});
+
+export const completeSendingRequestEmail = (response) =>({
+  type: types.SENDING_REQUEST_EMAIL_COMPLETED,
+  payload: {response},
+});
+
+export const failSendingRequestEmail = (error) =>({
+  type: types.SENDING_REQUEST_EMAIL_FAILED,
+  payload: {error},
 });

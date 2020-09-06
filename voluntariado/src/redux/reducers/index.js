@@ -6,6 +6,8 @@ import projectRequestForm, * as ProjectRequestFormSelectors from './project.requ
 import tags, * as TagSelectors from './tags';
 import auth, * as AuthSelectors from './authorization';
 import projectRequestApproval, * as ProjectRequestApprovalSelectors from './project.request.approval';
+import projectRequestEmail from './project.request/project.request.email';
+
 const reducer = combineReducers({
     faculties,
     majors,
@@ -13,6 +15,7 @@ const reducer = combineReducers({
     tags,
     auth,
     projectRequestApproval,
+    projectRequestEmail,
 });
 
 export default reducer;

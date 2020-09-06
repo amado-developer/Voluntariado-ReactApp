@@ -45,7 +45,6 @@ const Terms = ({onClick}) => {
                 </div>
             </div>
         </div>
-       
 )};
 
 export default connect(

@@ -57,6 +57,7 @@ export default combineReducers({
     order,
 });
 
+
 export const getForm = (state, id) => state.byId[id];
 export const getForms = state => state.order.map(
   id => getForm(state, id)

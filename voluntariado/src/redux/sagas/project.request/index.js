@@ -79,6 +79,38 @@ function* postProjectRequest(action) {
     }
 }
 
+function* sendProjectRequestEmail(action){
+  try {
+    const {major, company, projectName} = action.payload;
+        const body = {
+            company,
+            projectName,
+            major,
+        }
+    const response = yield call(
+      fetch,
+      `${API_BASE_URL}/solicitud-proyecto/send-request-email/`,
+      {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      yield put(
+        actions.completeSendingRequestEmail(response.data))
+    } else {
+      const {non_field_errors} = yield response.json();
+      yield put(actions.failSendingRequestEmail(non_field_errors[0]));
+    }
+  } catch (error) {
+      yield put(actions.failSendingRequestEmail(error));
+  }
+}
+
 function* fetchProjectRequest(action){
   try {
     const isAuth = yield select(selectors.isAuthenticated);
@@ -256,6 +288,9 @@ function* fetchProjectLinks(action){
 
 export function* watchProjectRequestPosting() {
   yield takeEvery(types.POST_PROJECT_REQUEST_FORM_STARTED, postProjectRequest);
+}
+export function* watchProjectRequestEmailPosting(){
+  yield takeEvery(types.SENDING_REQUEST_EMAIL_STARTED, sendProjectRequestEmail);
 }
 export function* watchProjectRequestFetching() {
   yield takeEvery(projectRequestApprovalTypes.FETCHING_REQUESTS_STARTED, 

@@ -36,10 +36,10 @@ const inputValidation = (companyName='', phone='', email='', projectName='', des
 };
 
 let link = [] //temporalmente lo dejaremos aqui
-const ProjectRequestForm = ({onSubmitData, major, faculty, tags}) => {
+const ProjectRequestForm = ({onSubmitData, major, faculty, tags, onEmailSend}) => {
 
     const history = useHistory();
-    const [isModalShown, changeIsModalShown] = useState(true);
+    const [isModalShown, changeIsModalShown] = useState(false);
     const [inputValues, changeInputValues] = useState([]);
     const [description, changeDescription] = useState('');
     const [requirements, changeRequirements] = useState('');    
@@ -73,7 +73,7 @@ const ProjectRequestForm = ({onSubmitData, major, faculty, tags}) => {
             })
         }  
     }
-
+    
     return(
         <div className="project_request_container">
             <Header color={'#343434'} logo={whiteLogo}/>
@@ -81,10 +81,11 @@ const ProjectRequestForm = ({onSubmitData, major, faculty, tags}) => {
             {
                 isModalShown ? (
                 <Modal 
-                body="¿Está seguro que desea cancelar?" />) 
+                body="¿Está seguro que desea cancelar?" changeIsModalShown={changeIsModalShown}/>) 
                 : 
                 (
                     <> 
+                    
                     </>
                 )
             }
@@ -207,20 +208,24 @@ const ProjectRequestForm = ({onSubmitData, major, faculty, tags}) => {
                             let tagList = '';
                             tags.map(tag => tagList += tag.tag + '  ');
                             // tagList = tagList.replace('  ', ',')
-                            onSubmitData(
-                            uuid(), 
-                            inputValues, 
-                            description, 
-                            requirements, 
-                            faculty, 
-                            major, 
-                            aboutUs, 
-                            images, 
-                            links,
-                            tagList,
-                            );
-                            setTimeout(() => {history.push('/login');}, 3000);
-                            notify(true)
+                            // onSubmitData(
+                            // uuid(), 
+                            // inputValues, 
+                            // description, 
+                            // requirements, 
+                            // faculty, 
+                            // major, 
+                            // aboutUs, 
+                            // images, 
+                            // links,
+                            // tagList,
+                            // );
+                            // const majors = [major];
+                            onEmailSend(
+                                major, inputValues[0], inputValues[4]
+                            )
+                            // setTimeout(() => {history.push('/login');}, 3000);
+                            // notify(true)
                         }}>Enviar solicitud</button>
 
                         <button type="submit" className="cancel__request__btn"
@@ -253,7 +258,10 @@ export default connect(
     dispatch =>({
         onSubmitData(id, inputValues, description, requirements, faculty, major, aboutUs, images, links, tags){
             dispatch(actions.startPostProjectRequestForm(
-                id, inputValues, description, requirements, faculty, major, aboutUs, images, links, tags))
+                id, inputValues, description, requirements, faculty, major, aboutUs, images, links, tags));
+        },
+        onEmailSend(majors, company, projectName){
+            dispatch(actions.startSendingRequestEmail(majors, company, projectName));
         }
     })
 )(ProjectRequestForm);
