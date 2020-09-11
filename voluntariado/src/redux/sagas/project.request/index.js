@@ -38,7 +38,7 @@ function* postProjectRequest(action) {
 
         const response = yield call(
           fetch,
-          `${API_BASE_URL}/solicitud-proyecto/post-request/`,
+          `${API_BASE_URL}/project-request/post-request/`,
           {
             method: 'POST',
             body: JSON.stringify(body),
@@ -81,15 +81,17 @@ function* postProjectRequest(action) {
 
 function* sendProjectRequestEmail(action){
   try {
-    const {major, company, projectName} = action.payload;
+    const {major, company, projectName, email} = action.payload;
+    console.log(email);
         const body = {
             company,
             projectName,
             major,
+            email,
         }
     const response = yield call(
       fetch,
-      `${API_BASE_URL}/solicitud-proyecto/send-request-email/`,
+      `${API_BASE_URL}/project-request/send-request-email/`,
       {
         method: 'POST',
         body: JSON.stringify(body),
@@ -98,10 +100,29 @@ function* sendProjectRequestEmail(action){
         },
       },
     );
-
+    
     if (response.status === 200) {
       yield put(
         actions.completeSendingRequestEmail(response.data))
+
+        const companyEmailResponse = yield call(
+          fetch,
+          `${API_BASE_URL}/project-request/send-notification-email/`,
+          {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: 
+            {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+
+        if(companyEmailResponse.status === 200){
+          yield put(
+            actions.completeSendingRequestEmail(response.data)
+          );
+        }
     } else {
       const {non_field_errors} = yield response.json();
       yield put(actions.failSendingRequestEmail(non_field_errors[0]));
@@ -119,7 +140,7 @@ function* fetchProjectRequest(action){
       const token = yield select(selectors.getAuthToken);
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/solicitud-proyecto/pending-requests/`,
+        `${API_BASE_URL}/project-request/pending-requests/`,
         {
           method: 'GET',
           headers: {
@@ -156,12 +177,33 @@ function* approveProjectRequest(action){
     const isAuth = yield select(selectors.isAuthenticated);
     if(isAuth){
       const token = yield select(selectors.getAuthToken);
+      const {company, project, email} = action.payload;
+      console.log(action.payload);
+      const body = {
+        company,
+        project,
+        email,
+        isApproved: true,
+      };
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/solicitud-proyecto/${action.payload.id}/`,
+        `${API_BASE_URL}/project-request/${action.payload.id}/`,
         {
           method: 'PATCH',
           body: JSON.stringify({is_approved: true}),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${token}`,
+          },
+        },
+      );
+
+      yield call(
+        fetch,
+        `${API_BASE_URL}/project-request/send-confirmation-email/`,
+        {
+          method: 'POST',
+          body: JSON.stringify(body),
           headers: {
             'Content-Type': 'application/json',
             Authorization: `JWT ${token}`,
@@ -187,9 +229,16 @@ function* rejectProjectRequest(action){
     const isAuth = yield select(selectors.isAuthenticated);
     if(isAuth){
       const token = yield select(selectors.getAuthToken);
+      const {company, project, email} = action.payload;
+      const body = {
+        company,
+        project,
+        email,
+        isApproved: false,
+      };
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/solicitud-proyecto/${action.payload.id}/`,
+        `${API_BASE_URL}/project-request/${action.payload.id}/`,
         {
           method: 'DELETE',
           headers: {
@@ -198,7 +247,20 @@ function* rejectProjectRequest(action){
           },
         },
       );
-      console.log(response.status);
+      
+      yield call(
+        fetch,
+        `${API_BASE_URL}/project-request/send-confirmation-email/`,
+        {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${token}`,
+          },
+        },
+      );
+   
       if (response.status === 204) {
         yield put(
           projectRequestApprovalActions.completeRejectingProjectRequest(action.payload.id))

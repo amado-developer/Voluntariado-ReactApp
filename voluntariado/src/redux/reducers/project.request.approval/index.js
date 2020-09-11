@@ -2,7 +2,6 @@ import omit from 'lodash/omit';
 import {combineReducers} from 'redux';
 import * as types from '../../types/project.request.approval';
 
-
 const byId = (state = {}, action) => {
   switch (action.type) {
     case types.FETCHING_REQUESTS_COMPLETED: {
@@ -195,7 +194,6 @@ const selectedProjectRequest = (state=null, action) =>{
   }
   return state;
 }
-
 
 export default combineReducers({
     byId,

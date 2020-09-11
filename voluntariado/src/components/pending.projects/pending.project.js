@@ -11,9 +11,10 @@ const PendingProject = ({data, onAccept, onReject, onSelect}) => {
     const isoDate = new Date(date).toLocaleDateString()
 
     const company = data.company_name;
-    const project = data.project_name
+    const project = data.project_name;
+    const email = data.email_address;
 
-    function handleClick(e, actionType) {
+    function handleClick(e, actionType, email, company, project) {
         e.stopPropagation();
         switch(actionType){
             case'See more':{
@@ -22,11 +23,11 @@ const PendingProject = ({data, onAccept, onReject, onSelect}) => {
                 break;
             }
             case 'Accept':{
-                onAccept();
+                onAccept(email, company, project);
                 break;
             }
             case 'Reject':{
-                onReject();
+                onReject(email, company, project);
                 break;
             }
         }
@@ -43,8 +44,8 @@ const PendingProject = ({data, onAccept, onReject, onSelect}) => {
                     <p>{description}</p>
                 </div>
                 <div className="pending__project__buttoms">
-                    <button onClick={e => handleClick(e, 'Reject')} > Aceptar </button>
-                    <button onClick={e => handleClick(e, 'Accept')}> Rechazar </button>
+                    <button onClick={e => handleClick(e, 'Reject', email, company, project)} > Rechazar </button>
+                    <button onClick={e => handleClick(e, 'Accept', email, company, project)}> Aceptar</button>
                     <button onClick={e => handleClick(e, 'See more')}>Ver mas</button>
                 </div>
             </div>
@@ -57,13 +58,12 @@ export default connect(
         data: selectors.getProjectRequest(state, index)
     }),
     (dispatch, {index}) =>({
-        onAccept(){
-            dispatch(actions.startApprovingProjectRequest(index))
+        onAccept(email, company, project){
+            dispatch(actions.startApprovingProjectRequest(index, email, company, project));
         },
-        onReject(){
-            dispatch(actions.startRejectingProjectRequest(index))
+        onReject(email, company, project){
+            dispatch(actions.startRejectingProjectRequest(index, email, company, project));
         },
-        
         onSelect(){
             dispatch(actions.selectProjectRequest(index));
             dispatch(actions.startFetchingProjectRequestImages(index));

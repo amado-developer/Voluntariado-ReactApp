@@ -64,9 +64,9 @@ export const selectMajor = major => ({
   payload: {major},
 });
 
-export const startSendingRequestEmail = (major, company, projectName) =>({
+export const startSendingRequestEmail = (major, company, projectName, email) =>({
   type: types.SENDING_REQUEST_EMAIL_STARTED,
-  payload: {major, company, projectName},
+  payload: {major, company, projectName, email},
 });
 
 export const completeSendingRequestEmail = (response) =>({

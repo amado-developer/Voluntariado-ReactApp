@@ -22,9 +22,9 @@ export const failFetchingProjectRequest = error => ({
 //=======================================================================
 
 
-export const startApprovingProjectRequest = id => ({
+export const startApprovingProjectRequest = (id, email, company, project) => ({
     type: types.PATCH_REQUEST_APPROVED_STARTED,
-    payload: {id}
+    payload: {id, email, company, project}
 });
   
 export const completeApprovingProjectRequest = id => ({
@@ -40,9 +40,9 @@ export const failApprovingProjectRequest = error => ({
 
 //=========================================================================
 
-export const startRejectingProjectRequest = id => ({
+export const startRejectingProjectRequest = (id, email, company, project) => ({
     type: types.DELETE_REQUEST_STARTED,
-    payload: {id}
+    payload: {id, email, company, project}
 });
   
 export const completeRejectingProjectRequest = id => ({
@@ -102,4 +102,4 @@ export const failFetchingProjectRequestLinks = error => ({
     payload: {error},
 });
 
-//================================================================================
+

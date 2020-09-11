@@ -4,9 +4,9 @@ import * as actions from '../../redux/actions/project.request.approval';
 import Sidebar from '../sidebar';
 import Header from '../header';
 import '../../styles/admin.home.css';
-// import Logo from '../../images/uvg_logo_black.png';
 import Logo from '../../images/uvg_logo_black.png';
 import PendingProjects from '../pending.projects/pending.projects';
+import Douglas from '../../images/doug2.png';
 const AdminHome = ({onLoad}) => {
     useEffect(() => {
         onLoad();
@@ -14,7 +14,7 @@ const AdminHome = ({onLoad}) => {
     return(
     <div className="admin__home__container">
         <div className="left__container">
-            <Sidebar />
+            <Sidebar profilePicture={Douglas} />
         </div>
         <div className="right__container">
             <div>

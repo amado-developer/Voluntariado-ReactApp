@@ -221,8 +221,9 @@ const ProjectRequestForm = ({onSubmitData, major, faculty, tags, onEmailSend}) =
                             // tagList,
                             // );
                             // const majors = [major];
+                        
                             onEmailSend(
-                                major, inputValues[0], inputValues[4]
+                                major, inputValues[0], inputValues[4], inputValues[2]
                             )
                             // setTimeout(() => {history.push('/login');}, 3000);
                             // notify(true)
@@ -260,8 +261,8 @@ export default connect(
             dispatch(actions.startPostProjectRequestForm(
                 id, inputValues, description, requirements, faculty, major, aboutUs, images, links, tags));
         },
-        onEmailSend(majors, company, projectName){
-            dispatch(actions.startSendingRequestEmail(majors, company, projectName));
+        onEmailSend(majors, company, projectName, email){
+            dispatch(actions.startSendingRequestEmail(majors, company, projectName, email));
         }
     })
 )(ProjectRequestForm);
