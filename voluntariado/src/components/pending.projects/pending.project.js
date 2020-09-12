@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import * as selectors from '../../redux/reducers';
 import * as actions from '../../redux/actions/project.request.approval';
 import {useHistory} from 'react-router-dom';
-
+import ProjectDisplayer from '../project.displayer';
 const PendingProject = ({data, onAccept, onReject, onSelect}) => {
     const history = useHistory();
     const {date, description} = data;
@@ -14,42 +14,20 @@ const PendingProject = ({data, onAccept, onReject, onSelect}) => {
     const project = data.project_name;
     const email = data.email_address;
 
-    function handleClick(e, actionType, email, company, project) {
-        e.stopPropagation();
-        switch(actionType){
-            case'See more':{
-                onSelect();
-                history.push("/project-request-detail");
-                break;
-            }
-            case 'Accept':{
-                onAccept(email, company, project);
-                break;
-            }
-            case 'Reject':{
-                onReject(email, company, project);
-                break;
-            }
-        }
-      }
+    const projectData = {
+        description,
+        company,
+        project,
+        isoDate,
+        email,
+        isAdmin : true,
+        onAccept,
+        onReject,
+        onSelect,
+        history,
+    }
     return(
-        <div className="pending__project__container">
-            <div className="pending__project" onClick={e => handleClick(e, 'See more')}>
-                <div className="pending__project__header">
-                    <p className="pending__project__name">{project}</p>
-                    <p className="pending__project__date">{isoDate}</p>
-                </div>
-                <div className="pending__project__description">
-                    <p className="pending__project__company">{company}</p>
-                    <p>{description}</p>
-                </div>
-                <div className="pending__project__buttoms">
-                    <button onClick={e => handleClick(e, 'Reject', email, company, project)} > Rechazar </button>
-                    <button onClick={e => handleClick(e, 'Accept', email, company, project)}> Aceptar</button>
-                    <button onClick={e => handleClick(e, 'See more')}>Ver mas</button>
-                </div>
-            </div>
-        </div>
+        <ProjectDisplayer data={projectData}  />
     )
 };
 

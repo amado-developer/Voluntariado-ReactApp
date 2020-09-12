@@ -6,7 +6,6 @@ import * as actions from '../../redux/actions/project.request';
 
 const AuthRoute = ({ user, component: Component, ...rest}) => {
   const{is_staff} = user;
-
   return (
     <Route
       {...rest}

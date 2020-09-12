@@ -10,6 +10,11 @@ import {watchProjectRequestPosting,
         watchProjectRequestEmailPosting,
       } from '../sagas/project.request';
 import {watchLoginStarted} from '../sagas/authorization';
+import {
+  watchAvailableProjectFetching, 
+  watchAvailableProjectImagesFecthing, 
+  watchAvailableProjectLinksFecthing
+} from '../sagas/available.projects';
 function* mainSaga() {
   yield all([
     fork(watchLoginStarted),
@@ -22,6 +27,9 @@ function* mainSaga() {
     fork(watchProjectRequestImagesFecthing),
     fork(watchProjectRequestLinksFecthing),
     fork(watchProjectRequestEmailPosting),
+    fork(watchAvailableProjectFetching),
+    fork(watchAvailableProjectImagesFecthing),
+    fork(watchAvailableProjectLinksFecthing),
   ]);
 }
   

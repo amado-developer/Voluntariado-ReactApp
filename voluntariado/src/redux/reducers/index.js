@@ -6,6 +6,7 @@ import projectRequestForm, * as ProjectRequestFormSelectors from './project.requ
 import tags, * as TagSelectors from './tags';
 import auth, * as AuthSelectors from './authorization';
 import projectRequestApproval, * as ProjectRequestApprovalSelectors from './project.request.approval';
+import availableProjects, * as AvailableProjectsSelectors from './available.projects';
 import projectRequestEmail from './project.request/project.request.email';
 
 const reducer = combineReducers({
@@ -16,6 +17,7 @@ const reducer = combineReducers({
     auth,
     projectRequestApproval,
     projectRequestEmail,
+    availableProjects,
 });
 
 export default reducer;
@@ -75,4 +77,31 @@ ProjectRequestApprovalSelectors.getIsFetching(state.projectRequestApproval);
 export const getError = state => 
 ProjectRequestApprovalSelectors.getError(state.projectRequestApproval);
 export const getSelectedProjectRequest = state => 
-ProjectRequestApprovalSelectors.getSelectedProjectRequest(state.projectRequestApproval)
+ProjectRequestApprovalSelectors.getSelectedProjectRequest(state.projectRequestApproval);
+
+//Available Projects Selectors
+export const getAvailableProject = (state, id) => 
+AvailableProjectsSelectors.getAvailableProject(state.availableProjects, id);
+export const getAvailableProjects = state => 
+AvailableProjectsSelectors.getAvailableProjects(state.availableProjects);
+
+export const getAvailableProjectImage = (state, id) => 
+AvailableProjectsSelectors.getAvailableProjectImage(state.availableProjects, id);
+export const getAvailableProjectImages = state => 
+AvailableProjectsSelectors.getAvailableProjectImages(state.availableProjects);
+export const isFetchingAvailableProjectImages = state =>
+AvailableProjectsSelectors.getIsFetchingAvailableProjectImages(state.availableProjects);
+
+export const getAvailableProjectRequestLink = (state, id) => 
+AvailableProjectsSelectors.getAvailableProjectLink(state.availableProjects, id);
+export const getAvailableProjectRequestLinks = state => 
+AvailableProjectsSelectors.getAvailableProjectLinks(state.availableProjects);
+export const isFetchingAvailableProjectLinks = state =>
+AvailableProjectsSelectors.getIsFetchingAvailableProjectLinks(state.availableProjects);
+
+export const isFetchingAvailableProjects = state => 
+AvailableProjectsSelectors.getIsFetching(state.availableProjects);
+export const getErrorAvailableProject = state => 
+AvailableProjectsSelectors.getError(state.availableProjects);
+// export const getSelectedProjectRequest = state => 
+// AvailableProjectsSelectors.getSelectedProjectRequest(state.availableProjects)
