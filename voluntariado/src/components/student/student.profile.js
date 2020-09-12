@@ -1,7 +1,20 @@
 import React from 'react';
 import Tono from '../../images/Tono.jpg';
+import {connect} from 'react-redux';
+import * as selectors from '../../redux/reducers';
 import '../../styles/student.profile.css';
-const StudentProfile = () =>{
+import pdfIcon from '../../images/pdf.png';
+import FileSaver from 'file-saver';
+import { Link } from 'react-router-dom';
+const StudentProfile = ({user}) =>{
+   
+    const firstName = user.first_name;
+    const lastName = user.last_name;
+    const {major, email, cv} = user;
+    const collegeID = user.college_id;
+    const phoneNumber = user.phone_number;
+    const pdf = cv;
+
     return(
         <div className="student-profile-wrapper">
             <h1>Perfil</h1>
@@ -14,26 +27,37 @@ const StudentProfile = () =>{
                     />
                 </div>
                 <div className="basic-student-info-wrapper">
-                    <p>Nombre: Ricardo Antonio Valenzuela Avila</p>
-                    <p>Carrera: Ciencias de la computacion y tecnologias de la informacion TI</p>
-                    <p>Carne: 18762</p>
+                    <p>Nombre: {firstName + ' ' + lastName }</p>
+                    <p>Carrera: {major} </p>
+                    <p>Carne: {collegeID} </p>
                 </div>
             </div>
             <div className="bottom-student-profile-wrapper">
                 <div className="student-contact-info">
                     <p>Correo Electronico:</p>
-                    <p>val18762@uvg.edu.gt</p>
+                    <p>{email}</p>
                 </div>
                 <div className="student-contact-info">
                     <p>Celular / telefono:</p>
-                    <p>52345678</p>
+                    <p>{phoneNumber}</p>
                 </div>
                 <div className="student-profile-cv">
-                    <p >CV: <input type="file" /></p>
+                    <button  onClick={() => FileSaver.saveAs(cv, firstName + "_" + lastName + "_CV.pdf")}>Descargar CV</button>
+                    <div>
+                        <img alt="pdf" src={pdfIcon} />
+                        <input type="file" />
+                    </div>
+                    
                 </div>
             </div>
         </div>
     )
 };
 
-export default StudentProfile;
+export default connect(
+    state=> ({
+        user: selectors.getAuthUser(state),
+       
+    })
+)
+(StudentProfile);

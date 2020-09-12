@@ -15,7 +15,6 @@ import {
   
   
   function* login(action) {
-    console.log(JSON.stringify(action.payload));
     try {
       const response = yield call(
         fetch,
@@ -28,9 +27,9 @@ import {
           },
         },
       );
-      console.log(response.status);
       if (response.status === 200) {
         const { token, user } = yield response.json();
+        // console.log(user);
         yield put(actions.completeLogin(token, user));
       } else {
         const { non_field_errors } = yield response.json();
