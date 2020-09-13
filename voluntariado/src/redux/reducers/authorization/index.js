@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import jwtDecode from 'jwt-decode';
 import * as types from '../../types/authorization';
-
+import {SERVER} from '../../../config';
 
 const token = (state = null, action) => {
   switch(action.type) {
@@ -33,7 +33,13 @@ const user = (state = {}, action) =>{
         case types.AUTHENTICATION_FAILED: {
           return {};
         }
-    
+
+        case types.UPDATE_CV_COMPLETED:{
+          const {cv} = action.payload;
+          let newState = state;
+          newState.cv = `${SERVER}/media/${cv.name}`;
+          return newState;
+        }
       }
       return state;
 }

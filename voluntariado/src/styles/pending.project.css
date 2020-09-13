@@ -78,3 +78,13 @@ p {
     box-shadow: 0 5px #666;
     transform: translateY(-4px);
 }
+
+.upload-cv-input-file{
+    width: 45rem;
+}
+
+.upload-cv-input-image{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

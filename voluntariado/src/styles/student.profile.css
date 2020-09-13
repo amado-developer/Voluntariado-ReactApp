@@ -1,7 +1,7 @@
 .student-profile-wrapper{
     display: flex;
     flex-direction: column;
-    padding: 0rem 10rem 0rem 10rem;
+    padding: 0rem 20rem 0rem 20rem;
 }
 
 .top-student-profile-wrapper{
@@ -33,23 +33,24 @@
     display: flex;
     flex-direction: column;
     background-color: #f4f3f3;
-    padding: 20rem;
+    padding: 20rem 20rem 0rem 20rem;
     margin-top: 10rem;
 }
 
+
 .student-profile-cv{
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 
-.student-profile-cv > div> img{
+.student-profile-cv > div > div  img{
     width: 14rem;
     margin-bottom: 2rem;
     margin-right: 2rem;
 }
 
-.student-profile-cv > button{
+.student-profile-cv > div > div >  button{
     width: 30rem;
     color: white;
     height: 11rem;
@@ -57,24 +58,20 @@
     outline: none;
     border: none;
     font-size: 4rem;
-    margin-bottom: 5rem;
-    margin-top: 5rem;
+    margin-left: 5rem;
 }
 
-.student-profile-cv > button:hover{
+.student-profile-cv > div > div >  button:hover{
     opacity: 0.5;
 }
 
-.student-profile-cv > button:active{
+.student-profile-cv >  div > div > button:active{
     background-color: #078b45;
     box-shadow: 0 5px #666;
     transform: translateY(1rem);
 }
 
-.student-profile-cv > div> input{
-    width: 44rem;
 
-}
 
 .student-profile-cv > div{
     display: flex;
@@ -86,5 +83,32 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 5rem;
+}
+
+.cv-name-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.cv-name-wrapper > div{
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    align-content: center;
+}
+
+.student-contact-info{
+    margin-bottom: 10rem;
+}
+
+.student-profile-cv{
+    margin-bottom: 20rem;
+}
+
+.upload-cv-wrapper{
+    flex-direction: column !important;
+    align-items: flex-end !important;
 }

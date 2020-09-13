@@ -9,7 +9,7 @@ import {watchProjectRequestPosting,
         watchProjectRequestLinksFecthing,
         watchProjectRequestEmailPosting,
       } from '../sagas/project.request';
-import {watchLoginStarted} from '../sagas/authorization';
+import {watchLoginStarted, watchUpdateCVStarted} from '../sagas/authorization';
 import {
   watchAvailableProjectFetching, 
   watchAvailableProjectImagesFecthing, 
@@ -30,6 +30,7 @@ function* mainSaga() {
     fork(watchAvailableProjectFetching),
     fork(watchAvailableProjectImagesFecthing),
     fork(watchAvailableProjectLinksFecthing),
+    fork(watchUpdateCVStarted),
   ]);
 }
   
