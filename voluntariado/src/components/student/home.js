@@ -4,15 +4,15 @@ import Tono from '../../images/Tono.jpg';
 import Header from '../header';
 import Logo from '../../images/uvg_logo_black.png';
 import AvailableProjects from './available.projects';
+import RecommendedProjects from './recommended.projects'
 import Profile from './student.profile';
 import * as actions from '../../redux/actions/available.projects';
 import '../../styles/student.css';
 import {connect} from 'react-redux';
 const Home = () =>{
     const [navigation, navigate] = useState(1);
-    const Components = [<Profile />, <AvailableProjects />]
+    const Components = [<Profile />, <RecommendedProjects />]
     const Component = Components[navigation];
-    console.log(<Profile />);
     return(
         <div className="home-wrapper">
             <div className="left-wrapper">

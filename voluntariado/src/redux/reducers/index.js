@@ -105,3 +105,10 @@ export const getErrorAvailableProject = state =>
 AvailableProjectsSelectors.getError(state.availableProjects);
 // export const getSelectedProjectRequest = state => 
 // AvailableProjectsSelectors.getSelectedProjectRequest(state.availableProjects)
+
+export const getRecommendedProject = (state, id) =>
+AvailableProjectsSelectors.getAvailableProject(state.availableProjects, id);
+export const getRecommendedProjects = state =>
+AvailableProjectsSelectors.getRecommendedProjects(state.availableProjects);
+export const isFetchingRecommendedProjects = state =>
+AvailableProjectsSelectors.getIsFetchingRecommendedProjects(state.availableProjects);

@@ -67,6 +67,28 @@ const linksById = (state={}, action) =>{
   return state;
 };
 
+const recommendedById = (state={}, action) => {
+  switch (action.type){
+    case types.FETCHING_RECOMMENDED_PROJECTS_COMPLETED:{
+      const {entities, order} = action.payload;
+      const newState = {...state};
+      order.forEach(id => {
+        newState[id] = {
+          ...entities[id],
+        };
+      });
+      return newState;
+    }
+    case types.FETCHING_RECOMMENDED_PROJECTS_STARTED:{
+      return {};
+    }
+    case types.FETCHING_RECOMMENDED_PROJECTS_FAILED:{
+      return {};
+    }
+  }
+  return state;
+};
+
 const order = (state = [], action) => {
   switch (action.type) {
     case types.FETCHING_AVAILABLE_PROJECTS_COMPLETED: {
@@ -103,6 +125,18 @@ const linksOrder = (state = [], action) => {
       return [...state, ...action.payload.order];
     }
     case types.FETCHING_AVAILABLE_PROJECTS_LINKS_STARTED: {
+      return [];
+    }
+  }
+  return state;
+};
+
+const recommendedOrder = (state = [], action) => {
+  switch (action.type) {
+    case types.FETCHING_RECOMMENDED_PROJECTS_COMPLETED: {
+      return [...state, ...action.payload.order];
+    }
+    case types.FETCHING_RECOMMENDED_PROJECTS_STARTED: {
       return [];
     }
   }
@@ -161,7 +195,23 @@ const isFetchingLinks = (state = false, action) => {
   }
 };
 
-  
+const isFetchingRecommendedProjects = (state = false, action) => {
+  switch (action.type) {
+    case types.FETCHING_RECOMMENDED_PROJECTS_STARTED: {
+      return true;
+    }
+    case types.FETCHING_RECOMMENDED_PROJECTS_COMPLETED: {
+      return false;
+    }
+    case types.FETCHING_RECOMMENDED_PROJECTS_FAILED: {
+      return false;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+  //fix error to adapt all
 const error = (state = null, action) => {
   switch (action.type) {
     case types.FETCHING_AVAILABLE_PROJECTS_FAILED: {
@@ -192,9 +242,11 @@ export default combineReducers({
     byId,
     imagesById,
     linksById,
+    recommendedById,
     order,
     imagesOrder,
     linksOrder,
+    recommendedOrder,
     isFetching,
     isFetchingImages,
     isFetchingLinks,
@@ -220,3 +272,8 @@ export const getIsFetchingAvailableProjectLinks = state => state.isFetchingLinks
 export const getIsFetching = state => state.isFetching;
 export const getError = state => state.error;
 // export const getSelectedProjectRequest = state => state.selectedProjectRequest;
+
+export const getRecommendedProject =  (state, id) => state.recommendedById[id];
+export const getRecommendedProjects = state => state.recommendedOrder.map(
+  id => getRecommendedProject(state, id));
+export const getIsFetchingRecommendedProjects = state => state.isFetchingRecommendedProjects;

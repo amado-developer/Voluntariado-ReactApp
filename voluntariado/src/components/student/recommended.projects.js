@@ -1,27 +1,27 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../../redux/reducers';
-import PendingProject from './pending.project';
+import * as selectors from '../../redux/reducers';
+import RecommendedProject from './recommended.project';
 import '../../styles/projectRequestApproval.css';
 
-const PendingProjects = ({user, data=[]}) =>{
+const RecomendedProjects = ({user, data}) =>{
     const userName = user.first_name + " " + user.last_name;
     return(
         <div>
             <div className="home__header">
                 <h1>{`Bienvenido ${userName}!`}</h1>
-                <h2>Proyectos nuevos</h2>
+                <h2>Proyectos recomendados</h2>
             </div>
             <div className="pending__projects__container">
             {
                 data.length === 0 &&(
-                    <p className="empty__projects">No hay Proyectos en espera</p>
+                    <p className="empty__projects">No hay Proyectos disponibles</p>
                 )
             }
             {   
                 data.length > 0 &&(
                 data.map(({id})=>{
-                    return<PendingProject index={id} key={id} />
+                    return<RecommendedProject index={id} key={id} />
                 }))
             }
             </div>
@@ -31,8 +31,8 @@ const PendingProjects = ({user, data=[]}) =>{
 
 export default connect(
     state=>({
-        user: actions.getAuthUser(state),
-        data: actions.getProjectRequests(state),
+        user: selectors.getAuthUser(state),
+        data: selectors.getRecommendedProjects(state),
     })
 )
-(PendingProjects);
+(RecomendedProjects);

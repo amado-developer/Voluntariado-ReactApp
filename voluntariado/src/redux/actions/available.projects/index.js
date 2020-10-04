@@ -59,4 +59,26 @@ export const failFetchingAvailableProjectLinks = error => ({
     payload: {error},
 });
 
+//========================================================================
+
+export const startFetchingRecommendedProjects = () => ({
+    type: types.FETCHING_RECOMMENDED_PROJECTS_STARTED,
+});
+  
+export const completeFetchingRecommendedProjects = (entities, order) => ({
+    type: types.FETCHING_RECOMMENDED_PROJECTS_COMPLETED,
+    payload: {
+      entities,
+      order,
+    },
+});
+
+export const failFetchingRecommendedProjects = error => ({
+    type: types.FETCHING_RECOMMENDED_PROJECTS_FAILED,
+    payload: {error},
+});
+
+//=======================================================================
+
+
 

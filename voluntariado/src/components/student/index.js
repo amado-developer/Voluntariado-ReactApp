@@ -15,6 +15,7 @@ export default connect(
     dispatch =>({
         onLoad(){
             dispatch(actions.startFetchingAvailableProjects());
+            dispatch(actions.startFetchingRecommendedProjects());
         }
     }),
 )(Student);
