@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import jwtDecode from 'jwt-decode';
 import * as types from '../../types/authorization';
-import {SERVER} from '../../../config';
+import {SERVER} from '../../../Config';
 
 const token = (state = null, action) => {
   switch(action.type) {

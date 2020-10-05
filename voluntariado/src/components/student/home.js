@@ -11,7 +11,7 @@ import '../../styles/student.css';
 import {connect} from 'react-redux';
 const Home = () =>{
     const [navigation, navigate] = useState(1);
-    const Components = [<Profile />, <RecommendedProjects />]
+    const Components = [<Profile />, <AvailableProjects />]
     const Component = Components[navigation];
     return(
         <div className="home-wrapper">

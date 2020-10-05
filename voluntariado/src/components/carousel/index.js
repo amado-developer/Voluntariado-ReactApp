@@ -1,7 +1,7 @@
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.css";
-import {SERVER} from '../../config';
+import {SERVER} from '../../Config';
 export default ({images, maxHeight}) => {
 
     return(
