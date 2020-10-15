@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProjectDisplayer = ({data}) => {
+const ProjectDisplayer = ({data, changeIsModalShown}) => {
     const {description} = data;
     const company = data.company;
     const project = data.project;
@@ -24,12 +24,15 @@ const ProjectDisplayer = ({data}) => {
                     <button onClick={e => {
                         data.onSelect(); 
                         data.history.push("/project-request-detail");
+       
                         }}>Ver mas
                     </button>
                 </div>) : 
                 (
                     <div className="pending__project__buttoms">
-                        <button className="p">Ver Mas</button>
+                        <button className="p" onClick={e => {
+                            changeIsModalShown(true);
+                        }}>Ver Mas</button>
                     </div>
                 )
                 }

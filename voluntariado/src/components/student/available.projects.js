@@ -1,18 +1,15 @@
 import React,{ useState, useEffect, Fragment, button } from "react";
-import { IconContext } from "react-icons";
 import {connect} from 'react-redux';
 import * as selectors from '../../redux/reducers';
 import AvailableProject from './available.project';
-import '../../styles/projectRequestApproval.css';
 import '../../styles/Search.css'
 import search from '../../styles/search.svg'
 
 
 
-const AvailableProjects = ({user, data}) =>{
+const AvailableProjects = ({user, data, navigate}) =>{
     const userName = user.first_name + " " + user.last_name;
     const [filtered, setFiltered] = useState([]);
-
     useEffect(() => {
         setFiltered(data);
       }, [data]);
@@ -48,7 +45,13 @@ const AvailableProjects = ({user, data}) =>{
         <div>
             <div className="home__header">
                 <h1>{`Bienvenido ${userName}!`}</h1>
+                <div className="top__navigation__buttons">
+                    
+                    <button onClick={() => navigate(1)} style={{color: "#078b45"}}>Disponibles</button>
+                    <button onClick={() => navigate(2)} style={{color: "black"}}>Recomendados</button>
+                </div>
                 <h2>Proyectos disponibles</h2>
+              
             </div>
             
             <div className='wrap'>

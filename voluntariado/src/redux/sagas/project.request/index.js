@@ -15,7 +15,7 @@ import {normalize} from 'normalizr';
 import * as projectRequestApprovalTypes from '../../types/project.request.approval';
 import * as projectRequestApprovalActions from '../../actions/project.request.approval';
 
-import {API_BASE_URL} from '../../../Config';
+import {API_BASE_URL} from '../../../config';
 import axios from 'axios';
 
 function* postProjectRequest(action) {

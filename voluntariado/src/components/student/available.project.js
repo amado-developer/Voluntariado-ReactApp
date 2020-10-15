@@ -1,15 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
+import omit from 'lodash/omit';
 import {connect} from 'react-redux';
 import ProjectDisplayer from '../project.displayer';
 import * as selectors from '../../redux/reducers';
 import {useHistory} from 'react-router-dom';
+import Modal from './application.modal';
 const AvailableProject = ({data, onSelect}) => {
+    const [isModalShown, changeIsModalShown] = useState(false);
+    const [selectedProject, changeSelectedProject] = useState(1);
+   
     const history = useHistory();
-    const {description} = data;
+    const {description, id} = data;
+    
     const company = data.company_name;
     const project = data.project_name;
 
     const projectData = {
+        id,
         description,
         company,
         project,
@@ -17,7 +24,18 @@ const AvailableProject = ({data, onSelect}) => {
         onSelect,
         history,
     }
-    return( <ProjectDisplayer data={projectData} />);
+  
+
+    return( 
+        <div>
+            {
+                isModalShown? ( <Modal data={omit(data, id)} />) : (<></>)
+            }
+            <ProjectDisplayer data={projectData} changeIsModalShown={changeIsModalShown}/> 
+        </div>
+
+    
+    );
 };
 
 export default connect(

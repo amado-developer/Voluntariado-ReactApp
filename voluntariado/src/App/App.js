@@ -12,6 +12,7 @@ import ProjectRequestDetail from '../components/project.request.detail'
 import AuthRoute from '../components/auth/auth.route';
 import Terms from '../components/terms';
 import Student from '../components/student'; 
+import Modal from '../components/student/application.modal'
 const { store, persistor } = configureStore();
 
 const App = () => (

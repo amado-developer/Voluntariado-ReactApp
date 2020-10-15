@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     padding: 32px 32px 32px 32px;
-    
+
 }
 
 .pending__project__header {
@@ -13,7 +13,7 @@
     height: 50px;
     justify-content: space-between;
     padding-right: 32px;
-    
+
 }
 
 .pending__project__buttoms {
@@ -36,6 +36,7 @@
 
 h1 {
     font-size: 50px;
+
 }
 
 h2 {
@@ -51,6 +52,8 @@ p {
     font-size: 30px;
     margin: 0 0 0 0;
     text-align: justify;
+    opacity: 1;
+    color: #666;
 }
 
 .pending__project__name {

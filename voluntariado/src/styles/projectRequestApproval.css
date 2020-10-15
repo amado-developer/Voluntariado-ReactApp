@@ -3,6 +3,7 @@
     margin-bottom: 40px;
     border: black;
     border-style: groove;
+    z-index: -100;
 }
 
 .pending__projects__container{
@@ -23,4 +24,20 @@
 
 .empty__projects{
     padding-left: 60px;
+}
+
+.top__navigation__buttons{
+    display: flex;
+    flex-direction: row;
+    border-bottom-style: solid;
+    border-color: #078b45;
+    margin: 0rem 14rem 0rem 0rem;
+}
+
+.top__navigation__buttons > button{
+    border: none;
+    outline: none;
+    margin-right: 5rem;
+    font-size: 6rem;
+    background-color: white;
 }

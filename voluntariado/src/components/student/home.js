@@ -11,8 +11,10 @@ import '../../styles/student.css';
 import {connect} from 'react-redux';
 const Home = () =>{
     const [navigation, navigate] = useState(1);
-    const Components = [<Profile />, <AvailableProjects />]
+    const Components = [<Profile />, <AvailableProjects navigate={navigate}/>, <RecommendedProjects navigate={navigate} />]
     const Component = Components[navigation];
+
+
     return(
         <div className="home-wrapper">
             <div className="left-wrapper">
@@ -21,7 +23,7 @@ const Home = () =>{
             <div className="right-wrapper">
                 <Header color={'#FFFFFF'} logo={Logo} />
                 <div className="projects-wrapper">
-                    { Component }
+                   {Component}
                 </div>
             </div>
         </div>

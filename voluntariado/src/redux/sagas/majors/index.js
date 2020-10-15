@@ -12,7 +12,7 @@ import {
   import * as schemas from '../../schemas/majors';
   import * as types from '../../types/project.request';
   import * as actions from '../../actions/project.request';
-  import {API_BASE_URL} from '../../../Config'
+  import {API_BASE_URL} from '../../../config'
   
   function* fetchMajors(action) {
       const {faculty} = action.payload;
