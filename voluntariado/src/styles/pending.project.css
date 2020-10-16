@@ -79,7 +79,7 @@ p {
 }
 
 .pending__project__buttoms button:hover {
-    opacity: 0.5;
+    background-color: #0CC965;
 }
 
 .pending__project__buttoms button:active {

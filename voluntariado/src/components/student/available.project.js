@@ -29,7 +29,7 @@ const AvailableProject = ({data, onSelect}) => {
     return( 
         <div>
             {
-                isModalShown? ( <Modal data={omit(data, id)} />) : (<></>)
+                isModalShown? ( <Modal data={omit(data, id)} changeIsModalShown={changeIsModalShown} />) : (<></>)
             }
             <ProjectDisplayer data={projectData} changeIsModalShown={changeIsModalShown}/> 
         </div>
