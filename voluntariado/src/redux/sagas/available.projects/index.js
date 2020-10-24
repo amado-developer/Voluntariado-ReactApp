@@ -18,9 +18,10 @@ function* fetchProjectRequest(action){
     const isAuth = yield select(selectors.isAuthenticated);
     if(isAuth){
       const token = yield select(selectors.getAuthToken);
+      const id = yield select(selectors.getAuthUserID);
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/project-request/available-projects/`,
+        `${API_BASE_URL}/project-request/available-projects/?student_id=${id}`,
         {
           method: 'GET',
           headers: {

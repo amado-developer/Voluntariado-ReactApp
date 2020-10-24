@@ -4,17 +4,19 @@ import * as selectors from '../../redux/reducers';
 import AvailableProject from './available.project';
 import '../../styles/Search.css'
 import search from '../../styles/search.svg'
-
-
-
-const AvailableProjects = ({user, data, navigate}) =>{
+import * as actions from '../../redux/actions/available.projects';
+import omit from 'lodash/omit';
+const AvailableProjects = ({user, data, navigate, onApply}) =>{
     const userName = user.first_name + " " + user.last_name;
     const [filtered, setFiltered] = useState([]);
+    let alteredFilteredList = [];
+  
     useEffect(() => {
         setFiltered(data);
       }, [data]);
 
 
+     
     const handleChange = e => {
 
         let currentList = [];
@@ -27,8 +29,9 @@ const AvailableProjects = ({user, data, navigate}) =>{
                 const i = item.project_name.toLowerCase()
                 const j = item.description.toLowerCase()
                 const k = item.company_name.toLowerCase()
+                const tags = item.tags.toLowerCase()
                 const filter = e.target.value.toLowerCase();
-                contains  = i.includes(filter) || j.includes(filter) || k.includes(filter)
+                contains  = i.includes(filter) || j.includes(filter) || k.includes(filter) || tags.includes(filter)
                 
                 return contains;
           });
@@ -82,9 +85,12 @@ const AvailableProjects = ({user, data, navigate}) =>{
             
             {   
                 data.length > 0 &&(
-               
-                    filtered.map(({id})=>{
-                    return<AvailableProject index={id} key={id} />
+                    
+                    filtered.map(e=>{
+                        if(e !== undefined)
+                        {
+                            return<AvailableProject index={e.id} key={e.id} />
+                        }
                 }))
             }
              
@@ -97,6 +103,6 @@ export default connect(
     state=>({
         user: selectors.getAuthUser(state),
         data: selectors.getAvailableProjects(state),
-    })
+    }),
 )
 (AvailableProjects);

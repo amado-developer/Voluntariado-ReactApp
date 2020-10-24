@@ -8,15 +8,16 @@ import Modal from './application.modal';
 const AvailableProject = ({data, onSelect}) => {
     const [isModalShown, changeIsModalShown] = useState(false);
     const [selectedProject, changeSelectedProject] = useState(1);
-   
+    console.log(data.tags);
     const history = useHistory();
-    const {description, id} = data;
+    const {description, id, tags} = data;
     
     const company = data.company_name;
     const project = data.project_name;
 
     const projectData = {
         id,
+        tags,
         description,
         company,
         project,

@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import * as types from '../../types/available.projects';
-
+import omit from 'lodash/omit';
 const byId = (state = {}, action) => {
   switch (action.type) {
     case types.FETCHING_AVAILABLE_PROJECTS_COMPLETED: {
@@ -15,6 +15,10 @@ const byId = (state = {}, action) => {
     }
     case types.FETCHING_AVAILABLE_PROJECTS_STARTED: {
       return {};
+    }
+
+    case types.APPLY_TO_PROJECT:{
+      return omit(state, action.payload.id);
     }
 
     default: {

@@ -80,5 +80,10 @@ export const failFetchingRecommendedProjects = error => ({
 
 //=======================================================================
 
+export const applyToProject = id => ({
+    type: types.APPLY_TO_PROJECT,
+    payload: {id},
+})
+
 
 

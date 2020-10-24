@@ -1,16 +1,19 @@
 import React from 'react';
 
 const ProjectDisplayer = ({data, changeIsModalShown}) => {
-    const {description} = data;
+    const {description, tags} = data;
     const company = data.company;
     const project = data.project;
     const isAdmin = data.isAdmin;
+    const tagsSpliter = tags.split('  ').map(e => '#' + e);
+    const hashtags = tagsSpliter.toString().replace(/,/g, ' ');
 
     return(
         <div className="pending__project__container">
             <div className="pending__project">
                 <div className="pending__project__header">
                     <p className="pending__project__name">{project}</p>
+                    <p>{hashtags}</p>
                     {isAdmin ? <p className="pending__project__date">{data.isoDate}</p> : <></>}
                 </div>
                 <div className="pending__project__description">

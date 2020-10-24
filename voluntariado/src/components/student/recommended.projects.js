@@ -27,7 +27,7 @@ const RecomendedProjects = ({user, data, navigate}) =>{
             {   
                 data.length > 0 &&(
                 data.map(({id})=>{
-                    return<RecommendedProject index={id} key={id} />
+                    return <RecommendedProject index={id} key={id} />
                 }))
             }
             </div>
