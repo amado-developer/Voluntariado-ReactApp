@@ -7,7 +7,7 @@ import {useHistory} from 'react-router-dom';
 import ProjectDisplayer from '../project.displayer';
 const PendingProject = ({data, onAccept, onReject, onSelect}) => {
     const history = useHistory();
-    const {date, description} = data;
+    const {date, description, tags} = data;
     const isoDate = new Date(date).toLocaleDateString()
 
     const company = data.company_name;
@@ -25,6 +25,7 @@ const PendingProject = ({data, onAccept, onReject, onSelect}) => {
         onReject,
         onSelect,
         history,
+        tags
     }
     return(
         <ProjectDisplayer data={projectData}  />

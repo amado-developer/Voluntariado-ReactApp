@@ -12,7 +12,7 @@ import {
   import * as schemas from '../../schemas/faculties';
   import * as types from '../../types/project.request';
   import * as actions from '../../actions/project.request';
-  import {API_BASE_URL} from '../../../config'
+  import {API_BASE_URL} from '../../../Config'
   
   function* fetchFaculties(action) {
     try {

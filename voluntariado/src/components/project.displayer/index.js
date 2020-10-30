@@ -5,6 +5,7 @@ const ProjectDisplayer = ({data, changeIsModalShown}) => {
     const company = data.company;
     const project = data.project;
     const isAdmin = data.isAdmin;
+
     const tagsSpliter = tags.split('  ').map(e => '#' + e);
     const hashtags = tagsSpliter.toString().replace(/,/g, ' ');
 

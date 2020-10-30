@@ -1,0 +1,71 @@
+.main_container{
+    padding: 10px 35px 20px 50px;
+}
+
+.project{
+    border-style: groove;
+    display: flex;
+    flex-direction: row;
+    padding: 32px 32px 32px 32px;
+    justify-content: space-between;
+}
+
+p {
+    font-size: 30px;
+    margin: 0 0 0 0;
+    text-align: justify;
+    opacity: 1;
+    color: #666;
+}
+
+
+.ptm{
+
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    height: 50px;
+    
+}
+
+.project_name{
+    font-size: 36px;
+    color: #343434;
+    opacity: 1;
+}
+
+
+.project_company{
+    opacity: 1;
+    color: #078b45;
+    font-size: 7rem;
+}
+
+.student_manager_button{
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+
+}
+
+
+.student_manager_button button {
+    background-color: #078b45;
+    outline: none;
+    width: 75rem;
+    height: 55px;
+    border: none;
+    color: white;
+    font-size: 28px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.student_manager_button button:hover {
+    background-color: #0CC965;
+}
+
+.student_manager_button button:active {
+    background-color: #078b45;
+    box-shadow: 0 5px #666;
+    transform: translateY(-4px);
+}

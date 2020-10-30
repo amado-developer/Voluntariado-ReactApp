@@ -7,6 +7,7 @@ import '../../styles/admin.home.css';
 import Logo from '../../images/uvg_logo_black.png';
 import PendingProjects from '../pending.projects/pending.projects';
 import Douglas from '../../images/doug2.png';
+import StudentManager from '../student.management/student.manager'
 const AdminHome = ({onLoad}) => {
     useEffect(() => {
         onLoad();
@@ -21,7 +22,7 @@ const AdminHome = ({onLoad}) => {
                 <Header color={'white'} logo={Logo} />
             </div>
             <div className="content__container">
-                <PendingProjects />
+                <StudentManager />
             </div>
         </div>
     </div>
