@@ -8,7 +8,7 @@ const Student = ({onLoad}) =>{
         onLoad();
     });
     return (
-        <ProjectList/>
+        <ProjectList />
     )
 }
 export default connect(

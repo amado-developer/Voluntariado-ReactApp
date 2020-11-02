@@ -8,6 +8,7 @@ import auth, * as AuthSelectors from './authorization';
 import projectRequestApproval, * as ProjectRequestApprovalSelectors from './project.request.approval';
 import availableProjects, * as AvailableProjectsSelectors from './available.projects';
 import projectRequestEmail from './project.request/project.request.email';
+import studentManager, * as studentManagerSelectors from './student.manager';
 
 const reducer = combineReducers({
     faculties,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
     projectRequestApproval,
     projectRequestEmail,
     availableProjects,
+    studentManager,
 });
 
 export default reducer;
@@ -112,3 +114,14 @@ export const getRecommendedProjects = state =>
 AvailableProjectsSelectors.getRecommendedProjects(state.availableProjects);
 export const isFetchingRecommendedProjects = state =>
 AvailableProjectsSelectors.getIsFetchingRecommendedProjects(state.availableProjects);
+
+export const getStudentManager = (state,id) => 
+studentManagerSelectors.getStudentManager(state.studentManager, id);
+export const getStudentsManager = state => 
+studentManagerSelectors.getStudentsManager(state.studentManager);
+export const getStudentManagerError = state => 
+studentManagerSelectors.getError(state.studentManager);
+export const isFetchingStudentManager = state => 
+studentManagerSelectors.getIsFetching(state.studentManager);
+export const getOrderedStudentsManager = state =>
+studentManagerSelectors.getOrderedStudentsManager(state.studentManager);

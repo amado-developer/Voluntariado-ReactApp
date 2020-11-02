@@ -35,6 +35,20 @@
     height: 40px;
 }
 
+.manager__icon__container{
+    display: flex;
+    margin-top: 30px;
+    align-content: center;
+    justify-content: center;
+
+}
+
+.manager__icon{
+    width: 55px;
+    height: 55px;
+
+}
+
 .side__bar__profile__name{
     align-items: center;
     justify-content: center;

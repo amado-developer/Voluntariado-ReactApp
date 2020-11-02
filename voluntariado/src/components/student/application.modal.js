@@ -43,6 +43,7 @@ const ApplicationModal = ({data, changeIsModalShown, token, userId, onApply}) =>
     }
 
     async function sendApplication(e){
+
         Axios.post(`${API_BASE_URL}/project-applications/`, {project_id: id, student_id : userId, major_id: 1}, {
             headers: {
                 'Authorization': `JWT ${token}`,

@@ -4,17 +4,19 @@ import {connect} from 'react-redux';
 import StudentManagerDisplayer from './student.manager.displayer'
 import * as selectors from '../../redux/reducers';
 import {useHistory} from 'react-router-dom';
-import StudentManagerModal from '../modal.student.manager/index'
+import StudentManagerModal from '../modal.student.manager';
 
 const StudentProjectList = ({data, onSelect}) =>{
     const [isModalShown, changeIsModalShown] = useState(false);
-    const {description} = data;
+    const [selectedProject, setSelectedProject] = useState(null);
+    const {description, id} = data;
     const history = useHistory();
     const company = data.company_name;
     const project = data.project_name;
 
     
     const projectData = {
+        id,
         description,
         company,
         project,
@@ -25,9 +27,9 @@ const StudentProjectList = ({data, onSelect}) =>{
     return(
         <div>
              {
-                isModalShown? ( <StudentManagerModal  changeIsModalShown={changeIsModalShown} />) : (<></>)
+                isModalShown? ( <StudentManagerModal  changeIsModalShown={changeIsModalShown}  projectId={id}/>) : (<></>)
             }
-            <StudentManagerDisplayer data={projectData} changeIsModalShown={changeIsModalShown} />
+            <StudentManagerDisplayer data={projectData} changeIsModalShown={changeIsModalShown}  />
 
         </div>
     )
