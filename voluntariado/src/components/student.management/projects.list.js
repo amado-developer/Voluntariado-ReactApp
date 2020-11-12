@@ -11,17 +11,14 @@ const ProjectList = ({user, data}) =>{
     return(
         <div className='wrapper'>
             <div className="home__header">
-                <h1>{`Bienvenido ${userName}!`}</h1>
-                <h2>Manejar Proyectos</h2>
+                
+                <h1>Manejar Proyectos</h1>
             </div>
         
             <div className="project_list"> {
-
-
                 data.length === 0 &&(
                     <p className="empty_projects">No hay Proyectos disponibles</p>
                 )}
-            
             {   
                 data.length > 0 &&(
                     
@@ -32,17 +29,10 @@ const ProjectList = ({user, data}) =>{
                         }
                 }))
             }
-             
             </div>
-
-
-
         </div>
     )
 }
-
-
-
 
 export default connect(
     state=>({

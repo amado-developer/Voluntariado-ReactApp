@@ -16,6 +16,7 @@ import {
   watchAvailableProjectLinksFecthing,
   watchRecommendedProjectsFetching,
 } from '../sagas/available.projects';
+import {watchStudentManagerFetching} from '../sagas/student.manager';
 function* mainSaga() {
   yield all([
     fork(watchLoginStarted),
@@ -33,6 +34,7 @@ function* mainSaga() {
     fork(watchAvailableProjectImagesFecthing),
     fork(watchAvailableProjectLinksFecthing),
     fork(watchUpdateCVStarted),
+    fork(watchStudentManagerFetching),
   ]);
 }
   
