@@ -4,7 +4,7 @@ import * as selectors from '../../redux/reducers';
 import '../../styles/project.application.modal.css';
 import Apply from '../../images/apply.png';
 import Axios from 'axios';
-import {API_BASE_URL} from '../../Config';
+import {API_BASE_URL} from '../../config';
 import { toast } from 'react-toastify';
 import { times } from 'lodash';
 import * as actions from '../../redux/actions/available.projects';

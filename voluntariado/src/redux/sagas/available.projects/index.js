@@ -11,7 +11,7 @@ import * as schemas from '../../schemas/available.projects';
 import * as imageSchemas from '../../schemas/project.requests.approval.images';
 import * as linkSchemas from '../../schemas/project.requests.approval.links';
 import {normalize} from 'normalizr';
-import {API_BASE_URL} from '../../../Config';
+import {API_BASE_URL} from '../../../config';
 
 function* fetchProjectRequest(action){
   try {
