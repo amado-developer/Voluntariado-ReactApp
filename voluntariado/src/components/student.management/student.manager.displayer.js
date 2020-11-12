@@ -7,7 +7,6 @@ const StudentManagerDisplayer = ({data, changeIsModalShown, fetchStudents}) =>{
     const company = data.company;
     const project = data.project;
 
-    console.log(data);
     return(
         <div className='main_container'>
             <div className ='project'>
@@ -17,12 +16,12 @@ const StudentManagerDisplayer = ({data, changeIsModalShown, fetchStudents}) =>{
                         <p className="project_name">{project}</p>
                     </div>
 
-                    <div className="project_description">
+                    <div className="project_company_container">
                         <p className="project_company">{company}</p>
                     </div>
 
-                    <div className="project_description2">
-                        <p className="project_company">{description}</p>
+                    <div className="project_description_container">
+                        <p className="project_description">{description}</p>
                     </div>
                     
                 </div>
