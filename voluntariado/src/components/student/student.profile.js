@@ -7,9 +7,6 @@ import '../../styles/student.profile.css';
 import pdfIcon from '../../images/pdf.png';
 import FileSaver from 'file-saver';
 
-
-
-  
   async function asyncCall(setIsuploadButtonActive) {
     await setIsuploadButtonActive(false);
   }

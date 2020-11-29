@@ -1,0 +1,95 @@
+.report__container{
+    margin: -20rem 25rem 0 25rem;
+}
+
+.report__description__container{
+    display: flex;
+    flex-direction: column;
+}
+
+.files__documents__container{
+    margin-top: 10rem;
+}
+.files__upload__container{
+    display: flex;
+    flex-direction:column;
+    padding: 10rem 10rem 10rem 10rem;
+    border: 5px groove;
+    border-radius: 4rem;
+    margin-top: 5rem;
+    height: 75rem;
+    overflow-y: scroll;
+
+}
+
+.filesName__container{
+    display: flex;
+    flex-direction:row;
+    margin-bottom: 3rem;
+    
+}
+
+.fileName__delete{
+    color: #4CAF50;
+    margin-left: 3rem;
+}
+
+.fileName__delete:hover{
+    cursor: pointer;
+
+}
+
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    align-self: center;
+    justify-self: center;
+    background-color: #078b45;
+    color: white;
+    padding: 2rem 6rem 2rem 6rem;
+    border-radius: 3rem;
+    cursor: pointer;
+}
+
+
+.btn__container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 5rem;
+}
+
+.btn__container > button {
+    width: 12%;
+    height: 12rem;
+    margin-right: 2rem;
+    background-color: #078b45;
+    color:white;
+    padding: 2rem 6rem 2rem 6rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-size: 4rem;
+}
+
+.btn__container > button:hover{
+    opacity: 0.5;
+}
+
+.hours__worked__container{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5rem;
+}
+
+.hours__worked__input{
+    margin-left: 5rem;
+    outline: none;
+    font-size: 6rem;
+}
+
+.hours_lbl{
+    font-size: 7rem;
+}

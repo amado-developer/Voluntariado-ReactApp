@@ -3,7 +3,7 @@ import * as actions from '../../redux/actions/available.projects';
 import {connect} from 'react-redux';
 import ProjectList from './projects.list'
 
-const Student = ({onLoad}) =>{
+const StudentManager = ({onLoad}) =>{
     useEffect(() => {
         onLoad();
     });
@@ -18,4 +18,4 @@ export default connect(
             dispatch(actions.startFetchingAvailableProjects());
         }
     }),
-)(Student);
+)(StudentManager);

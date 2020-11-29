@@ -7,12 +7,14 @@ import {useHistory} from 'react-router-dom';
 import ProjectDisplayer from '../project.displayer';
 const PendingProject = ({data, onAccept, onReject, onSelect}) => {
     const history = useHistory();
-    const {date, description, tags} = data;
-    const isoDate = new Date(date).toLocaleDateString()
-
+    const {date, tags} = data;
+    const description = data.about_us;
+    const isoDate = new Date(date).toLocaleDateString();
     const company = data.company_name;
     const project = data.project_name;
     const email = data.email_address;
+    const phone = data.phone_number;
+
 
     const projectData = {
         description,
@@ -25,7 +27,10 @@ const PendingProject = ({data, onAccept, onReject, onSelect}) => {
         onReject,
         onSelect,
         history,
-        tags
+        tags,
+        phone,
+
+        isAcceptingProjects: true,
     }
     return(
         <ProjectDisplayer data={projectData}  />
@@ -37,8 +42,8 @@ export default connect(
         data: selectors.getProjectRequest(state, index)
     }),
     (dispatch, {index}) =>({
-        onAccept(email, company, project){
-            dispatch(actions.startApprovingProjectRequest(index, email, company, project));
+        onAccept(email, company, project, phone, description){
+            dispatch(actions.startApprovingProjectRequest(index, email, company, project, phone, description));
         },
         onReject(email, company, project){
             dispatch(actions.startRejectingProjectRequest(index, email, company, project));
@@ -47,7 +52,8 @@ export default connect(
             dispatch(actions.selectProjectRequest(index));
             dispatch(actions.startFetchingProjectRequestImages(index));
             dispatch(actions.startFetchingProjectRequestLinks(index));
-        }
+        },
+        
     })
 )
 (PendingProject);

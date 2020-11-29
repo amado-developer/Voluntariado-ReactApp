@@ -6,3 +6,4 @@ export const UPDATE_CV_STARTED        = 'UPDATE_CV_STARTED';
 export const UPDATE_CV_COMPLETED      = 'UPDATE_CV_COMPLETED';
 export const UPDATE_CV_FAILED         = 'UPDATE_CV_FAILED';
 
+export const CHANGE_USER_TYPE = 'CHANGE_USER_TYPE';

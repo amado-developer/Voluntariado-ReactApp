@@ -1,7 +1,8 @@
 import React from 'react';
-
-const ProjectDisplayer = ({data, changeIsModalShown}) => {
-    const {description, tags} = data;
+import {connect} from 'react-redux';
+import * as actions from '../../redux/actions/student.manager';
+const ProjectDisplayer = ({data, changeIsModalShown, fetchStudents}) => {
+    const {description, tags, isAcceptingProjects, id, phone} = data;
     const company = data.company;
     const project = data.project;
     const isAdmin = data.isAdmin;
@@ -21,21 +22,23 @@ const ProjectDisplayer = ({data, changeIsModalShown}) => {
                     <p className="pending__project__company">{company}</p>
                     <p>{description}</p>
                 </div>
-                {isAdmin ? (
+                {isAdmin && isAcceptingProjects? (
                 <div className="pending__project__buttoms">
-                    <button onClick={e => data.onAccept(data.email, company, project)}> Aceptar</button>
+                    
+                    <button onClick={e => data.onAccept(data.email, company, project, phone, description)}> Aceptar</button>
                     <button onClick={e => data.onReject(data.email, company, project)} > Rechazar </button>
                     <button onClick={e => {
                         data.onSelect(); 
                         data.history.push("/project-request-detail");
-       
                         }}>Ver mas
                     </button>
                 </div>) : 
                 (
                     <div className="pending__project__buttoms">
-                        <button className="p" onClick={e => {
+                        <button className="p" onClick={() => {
+                            fetchStudents(id);
                             changeIsModalShown(true);
+                  
                         }}>Ver Mas</button>
                     </div>
                 )
@@ -45,4 +48,11 @@ const ProjectDisplayer = ({data, changeIsModalShown}) => {
     )
 };
 
-export default ProjectDisplayer;
+export default connect(
+    undefined,
+    dispatch => ({
+        fetchStudents(projectId){
+            dispatch(actions.startFetchingStudentManager(projectId))
+        }
+    })
+)(ProjectDisplayer);

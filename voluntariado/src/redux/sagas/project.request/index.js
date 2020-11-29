@@ -34,7 +34,6 @@ function* postProjectRequest(action) {
             tags,
             about_us : aboutUs,
         }
-        console.log(body);
 
         const response = yield call(
           fetch,
@@ -177,8 +176,8 @@ function* approveProjectRequest(action){
     const isAuth = yield select(selectors.isAuthenticated);
     if(isAuth){
       const token = yield select(selectors.getAuthToken);
-      const {company, project, email} = action.payload;
-      console.log(action.payload);
+      const {company, project, email, description, phone} = action.payload;
+      
       const body = {
         company,
         project,
@@ -197,6 +196,41 @@ function* approveProjectRequest(action){
           },
         },
       );
+
+      const companyExistsResponse = yield call(
+        fetch,
+        `${API_BASE_URL}/company-user/exists/?emailAddress=${email}`,
+        {
+          method: 'GET',
+          headers:{
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      const companyExists = yield companyExistsResponse.json();
+
+      if(!companyExists.exists){
+        const companyBody = {
+          email,
+          company_name : company,
+          phone_number : phone,
+          description,
+          password: 'test',
+        }
+
+     
+
+        yield call(
+          fetch,
+          `${API_BASE_URL}/company-user/register/`,{
+            method: 'POST',
+            body: JSON.stringify(companyBody),
+            headers:{
+              'Content-Type': 'application/json',
+            }
+          }
+        );
+      }
 
       yield call(
         fetch,

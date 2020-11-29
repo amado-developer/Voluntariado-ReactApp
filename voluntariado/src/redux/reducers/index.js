@@ -5,11 +5,13 @@ import majors, * as MajorsSelectors from './project.request/majors';
 import projectRequestForm, * as ProjectRequestFormSelectors from './project.request/form';
 import tags, * as TagSelectors from './tags';
 import auth, * as AuthSelectors from './authorization';
+import userType, * as UserTypeSelectors from './user.type';
 import projectRequestApproval, * as ProjectRequestApprovalSelectors from './project.request.approval';
 import availableProjects, * as AvailableProjectsSelectors from './available.projects';
 import projectRequestEmail from './project.request/project.request.email';
 import studentManager, * as studentManagerSelectors from './student.manager';
-
+import company, * as CompanySelectors from './company';
+import projectEnrollment, * as projectEnrollmentSelectors from './project.enrollment';
 const reducer = combineReducers({
     faculties,
     majors,
@@ -20,6 +22,9 @@ const reducer = combineReducers({
     projectRequestEmail,
     availableProjects,
     studentManager,
+    userType,
+    company,
+    projectEnrollment,
 });
 
 export default reducer;
@@ -53,6 +58,7 @@ export const getAuthenticationError = state => AuthSelectors.getAuthenticatingEr
 export const getAuthUserID = state => AuthSelectors.getAuthUserID(state.auth);
 export const getAuthExpiration = state => AuthSelectors.getAuthExpiration(state.auth);
 export const getAuthUser = state => AuthSelectors.getAuthUser(state.auth);
+export const getUserType = state => UserTypeSelectors.getUserType(state.userType);
 
 //Project Request Approval Selectors
 export const getProjectRequest = (state, id) => 
@@ -125,3 +131,17 @@ export const isFetchingStudentManager = state =>
 studentManagerSelectors.getIsFetching(state.studentManager);
 export const getOrderedStudentsManager = state =>
 studentManagerSelectors.getOrderedStudentsManager(state.studentManager);
+
+export const getCompanyUser = state =>
+CompanySelectors.getCompany(state.company);
+export const getCompanyError = state =>
+CompanySelectors.getError(state.company);
+export const isFetchingCompanies = state =>
+CompanySelectors.getIsFetching(state.company);
+
+export const getProjectEnrollmentStatus = state => 
+projectEnrollmentSelectors.getProjectEnrollmentStatus(state.projectEnrollment);
+export const isFetchingProjectEnrollment = state =>
+projectEnrollmentSelectors.getIsFetching(state.projectEnrollment);
+export const getProjectEnrollmentError = state =>
+projectEnrollmentSelectors.getError(state.projectEnrollment);

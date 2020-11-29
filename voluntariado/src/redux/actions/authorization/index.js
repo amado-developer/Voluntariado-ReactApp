@@ -35,3 +35,8 @@ export const failUpdatingCV = error => ({
 });
 
 //============================================================
+
+export const changeUserType = type => ({
+  type: types.CHANGE_USER_TYPE,
+  payload: {type},
+})

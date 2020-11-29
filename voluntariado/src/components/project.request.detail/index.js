@@ -9,6 +9,7 @@ import * as selectors from '../../redux/reducers';
 
 
 const ProjectRequestDetail = ({data, images, links, isLoadingImages, isLoadingLinks}) =>{
+    
     const companyName = data.company_name;
     const projectName = data.project_name;
     const companyAddress = data.company_address;

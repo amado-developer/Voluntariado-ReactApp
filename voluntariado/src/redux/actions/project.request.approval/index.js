@@ -22,9 +22,9 @@ export const failFetchingProjectRequest = error => ({
 //=======================================================================
 
 
-export const startApprovingProjectRequest = (id, email, company, project) => ({
+export const startApprovingProjectRequest = (id, email, company, project, phone, description) => ({
     type: types.PATCH_REQUEST_APPROVED_STARTED,
-    payload: {id, email, company, project}
+    payload: {id, email, company, project, phone, description}
 });
   
 export const completeApprovingProjectRequest = id => ({

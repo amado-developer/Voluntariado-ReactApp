@@ -15,8 +15,6 @@ const AvailableProjects = ({user, data, navigate, onApply}) =>{
         setFiltered(data);
       }, [data]);
 
-
-     
     const handleChange = e => {
 
         let currentList = [];

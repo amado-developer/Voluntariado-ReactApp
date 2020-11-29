@@ -33,6 +33,21 @@
 .home__icon{
     width: 40px;
     height: 40px;
+    align-self: center;
+}
+
+.home__icon:hover{
+    cursor: pointer;
+}
+
+.report__icon{
+    width: 50px;
+    height:50px;
+    align-self: center;
+}
+
+.report__icon:hover{
+    cursor: pointer;
 }
 
 .manager__icon__container{
@@ -40,7 +55,6 @@
     margin-top: 30px;
     align-content: center;
     justify-content: center;
-
 }
 
 .manager__icon{
@@ -72,7 +86,16 @@
     margin-top: 15px;
     align-content: center;
     justify-content: center;
+    height: 60px;
 }
+.report__icon__container{
+    display: flex;
+    margin-top: 20px;
+    align-content: center;
+    justify-content: center;
+    height: 60px;
+}
+
 
 /* mover el css */
 .right__container{

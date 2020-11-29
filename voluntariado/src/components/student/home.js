@@ -8,11 +8,12 @@ import RecommendedProjects from './recommended.projects'
 import Profile from './student.profile';
 import * as actions from '../../redux/actions/available.projects';
 import StudentElements from '../sidebar/students.elements';
+import Report from './report';
 import '../../styles/student.css';
 import {connect} from 'react-redux';
 const Home = () =>{
     const [navigation, navigate] = useState(1);
-    const Components = [<Profile />, <AvailableProjects navigate={navigate}/>, <RecommendedProjects navigate={navigate} />]
+    const Components = [<Profile />, <AvailableProjects navigate={navigate}/>, <RecommendedProjects navigate={navigate} />,  <Report />]
     const Component = Components[navigation];
 
     const studentSideBarElements = <StudentElements profilePicture={Tono} navigate={navigate}/>;
