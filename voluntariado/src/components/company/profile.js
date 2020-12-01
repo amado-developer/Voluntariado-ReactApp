@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import * as selectors from '../../redux/reducers';
+import Projects from './active.projects';
 const CompanyProfile = ({company}) => {
     let companyData = company;
     let email = '';
@@ -15,14 +16,20 @@ const CompanyProfile = ({company}) => {
     }
     return (
     <div>
-        <div>
-            <h1>Bienvenidos: </h1>
+        <div style={{marginLeft: '50px'}}>
+            <div>
+                <h1>Bienvenidos: </h1>
+            </div>
+            <div>
+                <p>{companyName}</p>
+                <p>{email}</p>
+                <p>{phoneNumber}</p>
+                <p>{description}</p>
+            </div>
         </div>
         <div>
-            <p>{companyName}</p>
-            <p>{email}</p>
-            <p>{phoneNumber}</p>
-            <p>{description}</p>
+            {email !== undefined ?   <Projects email={email}/> : <></> }
+          
         </div>
        
     </div>

@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/student.report';
 import * as selectors from '../../redux/reducers';
 import "../../styles/student.report.css";
+import { toast } from 'react-toastify';
+toast.configure();
 
 const StudentReport = ({studentId, projectStatus, onSubmit}) =>{
     const [description, setDescription] = useState("");
@@ -10,6 +12,15 @@ const StudentReport = ({studentId, projectStatus, onSubmit}) =>{
     const [filesName, changeFilesName] = useState([]);
     const [hours, changeHours] = useState(0);
     const projectId = projectStatus.project_id;
+
+    const notify = () =>
+            toast.success('Reporte enviado con exito', {
+                position:toast.POSITION.TOP_LEFT,
+                className: 'toast__success',
+                autoClose: 3000,
+            })
+    
+
     return(
         <div className="report__container">
             <h1>Generar Reporte</h1>
@@ -61,7 +72,10 @@ const StudentReport = ({studentId, projectStatus, onSubmit}) =>{
             <div className="btn__container">
                 <button type="submit" onClick={() => {
                     onSubmit(hours, description, files, studentId, projectId);
-                    }}> Enviar Reporte </button>
+                    notify();
+
+                    }
+                    }> Enviar Reporte </button>
             </div>
         </div>
     )

@@ -1,7 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/student.manager';
-const ProjectDisplayer = ({data, changeIsModalShown, fetchStudents}) => {
+import * as reportsActions from '../../redux/actions/company';
+const ProjectDisplayer = ({
+    data, 
+    isCompany = false, 
+    changeIsModalShown, 
+    fetchStudents, 
+    fetchProjectReports,
+    fetchProjectReportsMedia
+}) => {
     const {description, tags, isAcceptingProjects, id, phone} = data;
     const company = data.company;
     const project = data.project;
@@ -34,12 +42,20 @@ const ProjectDisplayer = ({data, changeIsModalShown, fetchStudents}) => {
                     </button>
                 </div>) : 
                 (
+                    !isCompany ? 
                     <div className="pending__project__buttoms">
                         <button className="p" onClick={() => {
                             fetchStudents(id);
                             changeIsModalShown(true);
-                  
                         }}>Ver Mas</button>
+                    </div>
+                    :
+                    <div className="pending__project__buttoms">
+                        <button className="p" onClick={() => {
+                            fetchProjectReports(id);
+                            fetchProjectReportsMedia(id);
+                            changeIsModalShown(true);
+                        }}>Ver reportes</button>
                     </div>
                 )
                 }
@@ -53,6 +69,12 @@ export default connect(
     dispatch => ({
         fetchStudents(projectId){
             dispatch(actions.startFetchingStudentManager(projectId))
+        },
+        fetchProjectReports(projectId){
+            dispatch(reportsActions.startFetchingProjectReports(projectId))
+        },
+        fetchProjectReportsMedia(projectId){
+            dispatch(reportsActions.startFetchingProjectReportsMedia(projectId))
         }
     })
 )(ProjectDisplayer);

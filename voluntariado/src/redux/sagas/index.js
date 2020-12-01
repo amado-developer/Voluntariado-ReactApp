@@ -17,7 +17,12 @@ import {
   watchRecommendedProjectsFetching,
 } from '../sagas/available.projects';
 import {watchStudentManagerFetching, watchStudentAcceptance, watchStudentRejection} from '../sagas/student.manager';
-import {watchCompaniesFetching} from './company';
+import {
+  watchCompaniesFetching, 
+  watchCompanyProjectsFetching, 
+  watchCompanyProjectReportsFetching,
+  watchCompanyProjectReportsMediaFetching,
+} from './company';
 import {watchProjectEnrollmentFetching} from './project.enrollment';
 import {watchStudentReportPosting} from './student.report';
 function* mainSaga() {
@@ -43,6 +48,9 @@ function* mainSaga() {
     fork(watchCompaniesFetching),
     fork(watchProjectEnrollmentFetching),
     fork(watchStudentReportPosting),
+    fork(watchCompanyProjectsFetching),
+    fork(watchCompanyProjectReportsFetching),
+    fork(watchCompanyProjectReportsMediaFetching),
   ]);
 }
   

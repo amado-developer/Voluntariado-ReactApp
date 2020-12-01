@@ -139,6 +139,27 @@ CompanySelectors.getError(state.company);
 export const isFetchingCompanies = state =>
 CompanySelectors.getIsFetching(state.company);
 
+export const getCompanyProject = (state, id) =>
+CompanySelectors.getAvailableProject(state.company, id);
+export const getCompanyProjects = state =>
+CompanySelectors.getAvailableProjects(state.company);
+export const isFetchingProjects = state=>
+CompanySelectors.getIsFetchingProjects(state.company);
+
+export const getCompanyProjectReport = (state, id) =>
+CompanySelectors.getReport(state.company, id);
+export const getCompanyProjectReports = state =>
+CompanySelectors.getReports(state.company);
+export const isFetchingCompanyProjectReports = state=>
+CompanySelectors.getIsFetchingReports(state.company);
+
+export const getCompanyProjectReportMedia = (state, id) =>
+CompanySelectors.getReportMedia(state.company, id);
+export const getCompanyProjectReportsMedia = state =>
+CompanySelectors.getReportsMedia(state.company);
+export const isFetchingCompanyProjectReportsMedia = state=>
+CompanySelectors.getIsFetchingReportsMedia(state.company);
+
 export const getProjectEnrollmentStatus = state => 
 projectEnrollmentSelectors.getProjectEnrollmentStatus(state.projectEnrollment);
 export const isFetchingProjectEnrollment = state =>

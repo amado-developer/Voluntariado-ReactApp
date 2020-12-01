@@ -10,12 +10,32 @@ import {Link} from 'react-router-dom'
 import viewIcon from '../../images/view_icon_green.png';
 import downloadIcon from '../../images/download_icon_green.png';
 
-const StudentInfo = ({student, onAccept, onReject}) =>{
+import { toast } from 'react-toastify';
+toast.configure();
+
+const StudentInfo = ({student, onAccept, onReject, changeIsModalShown}) =>{
     const firstName = student.student.first_name;
     const lastName = student.student.last_name;
     const collegeId = student.student.college_id;
     const phoneNumber = student.student.phone_number;
     const {email, cv} = student.student;
+
+    const notify = valid =>{
+        if(valid){
+            toast.success('El alumno ha sido aceptado con exito', {
+                position:toast.POSITION.TOP_LEFT,
+                className: 'toast__success',
+                autoClose: 3000,
+            })
+        }else{
+            toast.error('El alumno ha sido rechazado', {
+                position:toast.POSITION.TOP_LEFT,
+                className: 'toast__success',
+                autoClose: 3000,
+            })
+        }  
+    };
+
     return(
         <div className='student_container'>
             <div className ='student'>
@@ -41,8 +61,10 @@ const StudentInfo = ({student, onAccept, onReject}) =>{
                 <div className='buttons_container'>
                     <button onClick={() => {
                         onAccept();
+                        notify(true);
                     }} className='accept_button'> Aceptar</button>
                     <button onClick={() => {
+                        notify(false);
                         onReject();
                     }} className='reject_button'> Rechazar</button>
                 </div>

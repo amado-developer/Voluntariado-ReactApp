@@ -44,7 +44,7 @@ const StudentManagerModal = ({changeIsModalShown, students}) =>{
                     {
                             selectedId === 1 ? (pendingStudents.length > 0 ? (
                                 pendingStudents.map(student =>{
-                                   return (<StudentInfo key={student} index={student} />)
+                                   return (<StudentInfo key={student} index={student} changeIsModalShown={changeIsModalShown} />)
                                 })
                             ) : <h2>No hay solicitudes pendientes</h2>) : <></>
                           
@@ -54,14 +54,14 @@ const StudentManagerModal = ({changeIsModalShown, students}) =>{
                         {
                               selectedId === 2 ? (acceptedStudents.length > 0 ? (
                                 acceptedStudents.map(student =>{
-                                   return (<StudentInfo key={student} index={student} />)
+                                   return (<StudentInfo key={student} index={student}  changeIsModalShown={changeIsModalShown}/>)
                                 })
                             ) : <h2>No hay solicitudes aceptadas</h2>) : <></>
                         }
                         {
                                 selectedId === 3 ? (rejectedStudents.length > 0 ? (
                                     rejectedStudents.map(student =>{
-                                       return (<StudentInfo key={student} index={student} />)
+                                       return (<StudentInfo key={student} index={student}  changeIsModalShown={changeIsModalShown}/>)
                                     })
                                 ) : <h2>No hay solicitudes rechazadas</h2>) : <></>
                         }

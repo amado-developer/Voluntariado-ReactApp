@@ -1,0 +1,70 @@
+.reports__container{
+    display:flex;
+    flex-direction: column;
+    padding-left: 10rem;
+    height: fit-content;
+    border-style: groove;
+    border-width: 1rem;
+    padding: 10rem 40rem 10rem 40rem;
+    margin-bottom: 8rem;
+}
+
+.report__info__container{
+    display:flex;
+}
+
+.report__info__container > img{
+    width: 50rem;
+    height: 50rem;
+    margin-right: 10rem;
+}
+
+.project__reports{
+    width: 100%;
+}
+
+.modal-tittle > h3{
+    font-size: 8rem;
+}
+
+p{
+    margin-bottom: 3rem;
+}
+
+.media__files:hover{
+    color: #078b45;
+    cursor: pointer;
+}
+
+.accept__report__btn{
+    width: 25rem;
+    background-color: #078b45;
+    height: 10rem;
+    margin: 10px 10px 10px 0;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 4rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.reject__report__btn{
+    width: 25rem;
+    height: 10rem;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 4rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background-color:rgb(224, 83, 63);
+    margin: 10px 0 10px 0;
+}
+
+.accept__report__btn:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+.reject__report__btn:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}

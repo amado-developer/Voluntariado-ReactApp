@@ -12,7 +12,7 @@ import ProjectRequestDetail from '../components/project.request.detail'
 import AuthRoute from '../components/auth/auth.route';
 import Terms from '../components/terms';
 import Student from '../components/student'; 
-import Reports from '../components/student/report';
+import Projects from '../components/company/active.projects';
 const { store, persistor } = configureStore();
 
 const App = () => (
@@ -21,6 +21,7 @@ const App = () => (
       <BrowserRouter>
         <div>
           <Route exact path= "/login"  component={Auth} /> 
+          <Route path = "/test" component={Projects} />
           <AuthRoute exact path="/" component={[Home, Student]} />
           <Route path = "/project-request" component={ProjectRequest} />
           <Route path = "/project-request-detail" component={ProjectRequestDetail} />
